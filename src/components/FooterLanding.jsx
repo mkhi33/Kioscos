@@ -2,13 +2,13 @@ import React from 'react'
 
 const FooterLanding = () => {
   return (
-    <footer className=" p-4 bg-amber-500 px-36 text-white text-center">
+    <footer className="bg-amber-500  text-white text-center">
         <div className='flex'>
 
-            <ul className='flex w-1/2 ml-auto mr-auto'>
+            <ul className='flex md:w-1/2 ml-auto mr-auto'>
 
                 <li className='w-1/3'>
-                    <a href="#" className="mr-4  ">Registrate</a>
+                    <a href="/signUp">Registrate</a>
                 </li>
                 <li className='w-1/3'>
                     <a href="#" className="mr-4 ">Acerca De</a>

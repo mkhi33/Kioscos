@@ -32,12 +32,12 @@ const Header = () => {
                         </li>
                         <li>
 
-                            <a href="#" className="block py-2 pr-4 pl-3 text-white text-center  bg-amber-500 border rounded"><p>Inicio de sesión</p></a>
+                            <a href="/login" className="block py-2 pr-4 pl-3 text-white text-center  bg-amber-500 border rounded"><p>Inicio de sesión</p></a>
                         
                         </li>
 
                         <li>
-                            <a href="#" className="block py-2 pr-4 pl-3 text-white text-center   bg-sky-500 border rounded"><p>Registrate</p></a>
+                            <a href="/signUp" className="block py-2 pr-4 pl-3 text-white text-center   bg-sky-500 border rounded"><p>Registrate</p></a>
                         </li>
                     </ul>
                 </div>

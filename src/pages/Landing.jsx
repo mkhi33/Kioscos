@@ -13,11 +13,11 @@ const Landing = () => {
                 <p className='texto-1 mt-10 p-5 '>Inicia sesión en nuestra plataforma y obten la mejor experiencia al realizar tus pedidos</p>
             
                 <div className='flex grid-cols-2 gap-4 mt-5 pl-16'>
-
-                    <a className='bg-amber-500  text-white  hover:bg-amber-700 border rounded shadow text-center p-2' href='#'>
+                    
+                    <a className='bg-amber-500  text-white  hover:bg-amber-700 border rounded shadow text-center p-2' href='/signUp'>
                         <p>Registrate</p>    
                     </a>
-                    <a className='bg-white  hover:bg-slate-300 border rounded shadow text-center font-bold p-2' href='#'>
+                    <a className='bg-white  hover:bg-slate-300 border rounded shadow text-center font-bold p-2' href='/login'>
                         <p>Iniciar Sesión</p>    
                     </a>
 
@@ -47,10 +47,10 @@ const Landing = () => {
             
                 <div className='flex grid-cols-2 gap-4 mt-5 pl-16'>
 
-                    <a className='bg-sky-500 text-white  hover:bg-sky-700 border rounded shadow text-center p-2' href='#'>
+                    <a className='bg-sky-500 text-white  hover:bg-sky-700 border rounded shadow text-center p-2' href='/signUp'>
                         <p>Registrate</p>    
                     </a>
-                    <a className='bg-amber-500  hover:bg-amber-700 border rounded shadow text-center text-white p-2' href='#'>
+                    <a className='bg-amber-500  hover:bg-amber-700 border rounded shadow text-center text-white p-2' href='/login'>
                         <p>Iniciar Sesión</p>    
                     </a>
 
