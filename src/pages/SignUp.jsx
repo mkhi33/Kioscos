@@ -110,7 +110,7 @@ const SignUp = () => {
               <TextField  name="nombre" label="Nombre" placeholder='Ejem. Juan Josue' variant="filled" />
               <TextField name="apellido" label="Apellido" placeholder='Ejem. Perez Cruz' variant="filled" />
 
-              <TextField type="email" name="correo" label="Correo Electrónico" variant="filled" />
+              <TextField type="email" name="email" onChange={handleChange} label="Correo Electrónico" variant="filled" />
 
 
               <FormControl sx={{ m: 1, width: '25ch' }} variant="filled">
