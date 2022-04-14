@@ -1,13 +1,19 @@
 import React from 'react'
+import Categoria from '../components/Categoria';
+import useKioscosCliente from '../hooks/useKioscosCliente';
+
+
+
 
 const Sidebar = () => {
 
-    const categorias = [];
+    const { categorias } = useKioscosCliente();
+    console.log(categorias)
+
   return (
     <>
-        <img src={``} width={300} height={100} alt="Imagen logotipo" />
 
-        <nav className="mt-10">
+        <nav className="mt-5">
             {categorias.map( categoria => (
                 <Categoria 
                     key={categoria.id}
