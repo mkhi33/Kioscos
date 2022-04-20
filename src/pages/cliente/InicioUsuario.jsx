@@ -1,5 +1,5 @@
 import React from 'react'
-import LectorQr from '../components/LectorQr'
+import LectorQr from '../../components/LectorQr'
 
 const InicioUsuario = ({nombre}) => {
   return (

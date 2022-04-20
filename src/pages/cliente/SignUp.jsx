@@ -16,7 +16,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import useKioscosAuth from '../hooks/useKioscosAuth';
+import useKioscosAuth from '../../hooks/useKioscosAuth';
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import {  toast } from 'react-toastify';

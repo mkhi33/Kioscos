@@ -1,7 +1,7 @@
 import React from 'react'
-import Layout from '../layout/Layout'
-import useKioscosCliente from '../hooks/useKioscosCliente'
-import { formatearDinero } from '../helpers'
+import Layout from '../../layout/Layout'
+import useKioscosCliente from '../../hooks/useKioscosCliente'
+import { formatearDinero } from '../../helpers'
 
 const TotalCliente = () => {
     const { total, pedido } = useKioscosCliente();

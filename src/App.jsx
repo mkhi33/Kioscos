@@ -1,15 +1,16 @@
 import {useState, useEffect} from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import  Landing from './pages/Landing'
-import SigIn from './pages/SigIn';
-import SignUp from './pages/SignUp';
-import InicioUsuario from './pages/InicioUsuario';
-import MenuUsuario from './pages/MenuUsuario';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import ResumenUsuario from './pages/ResumenUsuario';
-import TotalCliente from './pages/TotalCliente';
+import  Landing from './pages/Landing'
+import SigIn from './pages/SigIn';
+import SignUp from './pages/cliente/SignUp';
+import InicioUsuario from './pages/cliente/InicioUsuario';
+import MenuUsuario from './pages/cliente/MenuUsuario';
+import ResumenUsuario from './pages/cliente/ResumenUsuario';
+import TotalCliente from './pages/cliente/TotalCliente';
+
 import { KioscosAuthProvider } from './context/KioscosAuthProvider';
 import { KioscosClienteProvider } from './context/KioscosClienteProvider';
 function App() {

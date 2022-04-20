@@ -1,8 +1,8 @@
 import { useState } from "react"
-import Layout from "../layout/Layout"
-import useKioscosCliente from "../hooks/useKioscosCliente"
-import Producto from "../components/Producto"
-import Modal from "../components/ModalProducto"
+import Layout from "../../layout/Layout"
+import useKioscosCliente from "../../hooks/useKioscosCliente"
+import Producto from "../../components/Producto"
+import Modal from "../../components/ModalProducto"
 const MenuUsuario = () => {
 
   const { categoriaActual, productos } = useKioscosCliente();
