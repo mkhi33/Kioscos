@@ -24,7 +24,7 @@ function App() {
                 <Route path="*" element={<>404 No encontrado</>} />
                 <Route path='/' element={<Landing />} />
                 <Route path='/login' element={ <SigIn />} />
-                <Route path='/login/:token' element={ <SigIn />} />
+                <Route path='/login/verificar/:token' element={ <SigIn />} />
                 <Route path='/signUp' element={ <SignUp />} />
                 <Route path='/cliente' element={ <InicioUsuario />} />
                 <Route path='/cliente/menu' element={ <MenuUsuario />} />

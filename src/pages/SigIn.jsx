@@ -34,14 +34,15 @@ const SigIn = () => {
     const location = useLocation();
     
         useEffect( () => {
-          if( location.pathname.split("/").length > 2 ){
+          if( location.pathname.split("/").includes('verificar') ){
             // validar el token
             const token = location.pathname.split("/").pop()
             
             axios.get(`${import.meta.env.VITE_API_URL}/usuarios/confirmar/${token}`).then( res => {
 
+              navigate('/login')
+              alert('Cuenta verificada correctamente')
               toast.success(res.msj)
-              navigate.push('/login')
 
             }, err => {
               const error = err.toJSON()
