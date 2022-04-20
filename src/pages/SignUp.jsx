@@ -16,6 +16,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
+import useKioscosAuth from '../hooks/useKioscosAuth';
+import axios from 'axios'
+import { useNavigate } from "react-router-dom"
+import {  toast } from 'react-toastify';
+
 const SignUp = () => {
     
     const [ imagen, setImagen ] = useState(null)
@@ -27,6 +32,11 @@ const SignUp = () => {
         birth: '01/01/1990',
         email: '',
     });
+
+    const [ estadoRegistro, setEstadoRegistro] = useState({
+      estado: '',  // ok: Usuario registrado correctamente, error: El usuario no se pudo registrar
+      msj:'' 
+    })
 
     const ref = useRef()
     
@@ -59,6 +69,27 @@ const SignUp = () => {
     event.preventDefault();
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if( Object.values(usuario).includes('') ) {
+      toast.error('Todos los campos son obligatorios')
+      
+      return;
+    }
+
+    axios.post(`${import.meta.env.VITE_API_URL}/usuarios`, usuario).then( res => {
+      setEstadoRegistro({
+        estado: 'ok',
+        msj: 'Se envio un correo con las instrucciones para validar su cuenta'
+      })
+    }, error => {
+      setEstadoRegistro({
+        estado: 'error',
+        msj: 'El usuario ya esta registrado'
+      })
+    })
+  }
 
   return (
 
@@ -82,8 +113,12 @@ const SignUp = () => {
               noValidate
               autoComplete="off"
               className="grid grid-row justify-center"
+              onSubmit={handleSubmit}
               
             >
+              <p className={ `${estadoRegistro.estado === 'error' ? `bg-red-500 p-2` : ( estadoRegistro.estado === 'ok'? 'bg-green-500 p-2' : null)} text-center text-white`}>{estadoRegistro.msj}</p>
+
+
 
               <h1 className="font-bold text-center">Registrar Usuario</h1>
 
@@ -107,8 +142,8 @@ const SignUp = () => {
    
 
 
-              <TextField  name="nombre" label="Nombre" placeholder='Ejem. Juan Josue' variant="filled" />
-              <TextField name="apellido" label="Apellido" placeholder='Ejem. Perez Cruz' variant="filled" />
+              <TextField  name="name" onChange={handleChange} label="Nombre" placeholder='Ejem. Juan Josue' variant="filled" />
+              <TextField name="lastName" onChange={handleChange} label="Apellido" placeholder='Ejem. Perez Cruz' variant="filled" />
 
               <TextField type="email" name="email" onChange={handleChange} label="Correo Electrónico" variant="filled" />
 

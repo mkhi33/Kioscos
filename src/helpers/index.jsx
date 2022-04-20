@@ -27,9 +27,10 @@ export const getCroppedImage = (sourceImage, cropConfig) => {
 }
 
 export const formatearDinero = (cantidad) => {
-    
+    if (!cantidad) return
     return cantidad.toLocaleString('en-US',{
         style:'currency',
         currency:'HNL'
     })
 }
+

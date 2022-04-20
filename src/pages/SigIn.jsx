@@ -1,6 +1,5 @@
 
-import { useState, useRef } from 'react';
-
+import { useState, useRef, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import FilledInput from '@mui/material/FilledInput';
@@ -16,7 +15,10 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 
-
+import useKioscosAuth from '../hooks/useKioscosAuth';
+import axios from 'axios'
+import { useNavigate, useLocation } from "react-router-dom"
+import {  toast } from 'react-toastify';
 const SigIn = () => {
     
     const [ mostrarPassword, setMostrarPassword ] = useState(false)
@@ -27,6 +29,32 @@ const SigIn = () => {
     });
 
     const ref = useRef()
+    const { setToken } = useKioscosAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    
+        useEffect( () => {
+          if( location.pathname.split("/").length > 2 ){
+            // validar el token
+            const token = location.pathname.split("/").pop()
+            
+            axios.get(`${import.meta.env.VITE_API_URL}/usuarios/confirmar/${token}`).then( res => {
+
+              toast.success(res.msj)
+              navigate.push('/login')
+
+            }, err => {
+              const error = err.toJSON()
+              if(error.status === 403 ){
+                toast.error("Token no válido")
+                return
+              }
+              toast.error("Error, no se pudo verificar el usuario")
+
+            })
+          }
+        }, [])
+        
     
     const getBase64 = async (file) => {
         var reader = new FileReader();
@@ -57,6 +85,33 @@ const SigIn = () => {
     event.preventDefault();
   };
 
+  const handleSubmit = ( e ) => {
+    e.preventDefault()
+
+    axios.post(`${import.meta.env.VITE_API_URL}/usuarios/login`, usuario ).then( res => {
+      
+      setToken(res.data.token)
+      toast.success("Inicio de sesión correctamente")
+
+      if( usuario.usuario === 'cliente') {
+        navigate('/cliente')
+      }
+    }, err => {
+      const error = err.toJSON()
+      if( error.status === 404 ){
+        toast.error("Correo o contraseña incorrectos")
+        return;
+      }
+      
+      if( error.status === 403 ){
+        toast.error("Tu cuente todavía no ha sido confirmada")
+        return;
+      }
+      
+    })
+    
+    
+  }
 
   return (
 
@@ -80,6 +135,7 @@ const SigIn = () => {
               noValidate
               autoComplete="off"
               className="grid grid-row justify-center"
+              onSubmit={handleSubmit}
               
             >
 

@@ -10,6 +10,8 @@ const  pasos = [
 
 const Pasos = () => {
 
+
+
     let location = useLocation();
     const navigate = useNavigate();
 

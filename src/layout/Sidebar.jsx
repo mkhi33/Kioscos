@@ -8,7 +8,6 @@ import useKioscosCliente from '../hooks/useKioscosCliente';
 const Sidebar = () => {
 
     const { categorias } = useKioscosCliente();
-    console.log(categorias)
 
   return (
     <>
