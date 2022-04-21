@@ -39,15 +39,22 @@ const KioscosAuthProvider = ({children}) => {
     const handleObtenerUsuario = async  (tkn, expiro) => {
 
         if( !tkn ) return;
-        axios.get(`${import.meta.env.VITE_API_URL}/usuarios/${tkn.id}`,{email: tkn.id}).then( (res) => {
+        const tipo = tkn.tipo === 'cliente' ? 'usuarios' : 'restaurantes';
+        const url = `${import.meta.env.VITE_API_URL}/${tipo}/${tkn.id}`
+        axios.get(url,{email: tkn.id}).then( (res) => {
             
             if( tkn && !expiro ) {
                 setUsuarioActual(res.data)
-            }else setUsuarioActual(null)
+            }else {
+                setUsuarioActual(null)
+            }
         }, (err) => {
             setUsuarioActual(null)
         })
     }
+
+    
+
     
     return (
         <KioscosAuthContext.Provider

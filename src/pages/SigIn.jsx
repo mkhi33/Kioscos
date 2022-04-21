@@ -37,8 +37,9 @@ const SigIn = () => {
           if( location.pathname.split("/").includes('verificar') ){
             // validar el token
             const token = location.pathname.split("/").pop()
+            const tipo = location.pathname.split("/").includes('usuario') ? 'usuarios' : 'restaurantes'
             
-            axios.get(`${import.meta.env.VITE_API_URL}/usuarios/confirmar/${token}`).then( res => {
+            axios.get(`${import.meta.env.VITE_API_URL}/${tipo}/confirmar/${token}`).then( res => {
 
               navigate('/login')
               alert('Cuenta verificada correctamente')
@@ -89,13 +90,22 @@ const SigIn = () => {
   const handleSubmit = ( e ) => {
     e.preventDefault()
 
-    axios.post(`${import.meta.env.VITE_API_URL}/usuarios/login`, usuario ).then( res => {
+    if( Object.values(usuario).includes("") ){
+      toast.info("Todos los campos son obligatorios")
+      return
+    }
+
+    let tipo = usuario.usuario === 'cliente' ? 'usuarios': 'restaurantes'
+
+    axios.post(`${import.meta.env.VITE_API_URL}/${tipo}/login`, usuario ).then( res => {
       
       setToken(res.data.token)
       toast.success("Inicio de sesión correctamente")
 
       if( usuario.usuario === 'cliente') {
         navigate('/cliente')
+      }else {
+        navigate('/restaurante')
       }
     }, err => {
       const error = err.toJSON()
