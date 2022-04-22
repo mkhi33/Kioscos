@@ -1,9 +1,18 @@
-import React from 'react'
+import useKioscosAuth from '../../hooks/useKioscosAuth'
 import LectorQr from '../../components/LectorQr'
+import { useEffect } from 'react'
 
 const InicioUsuario = ({nombre}) => {
+
+  const { usuarioActual } = useKioscosAuth()
+
+  if( !usuarioActual ) {
+    return null
+  }
+  
   return (
       <>
+
         <div className='bg-amber-500 p-2'>
             <img className='mr-3 h-16'  src='https://res.cloudinary.com/dicifr3km/image/upload/v1649704077/kioscos/Logo_1_ddimbp.svg' />    
         </div>

@@ -9,34 +9,66 @@ const KioscosAuthContext = createContext();
 const KioscosAuthProvider = ({children}) => {
 
     const [ token, setToken ] = useState(null)
-    const [ usuarioActual, setUsuarioActual ] = useState(null);
+    const [ decodificado, setDecodificado ] = useState({})
+    
+    const [ usuarioActual, setUsuarioActual ] = useState();
     const location = useLocation()
     const navigate = useNavigate()
     
-    useEffect( async () => {
+    useEffect( () => {
         // Verificar si hay un token en localStorage
         if( localStorage.getItem('KioscosToken') ) {
             setToken(localStorage.getItem('KioscosToken'))
             let tknDecode = decodeToken(token)
             let expiro = isExpired(token)   
-            await handleObtenerUsuario(tknDecode, expiro)
-                    
-        }else if( location.pathname.split('/').includes('cliente') && !usuarioActual ){
-            // Asegurarse de que tenga acceso unicamente a las rutas permitidas
-            navigate('/login')
+            setDecodificado(tknDecode)
+            handleObtenerUsuario(tknDecode, expiro)
+            return
+            
+        } else {
+            handleValidarAcceso()
         }
+
+        
+        
+
     }, [])
 
-    useEffect( async () => {
+    useEffect( () => {
+        if(usuarioActual){
+            handleValidarAcceso()
+        }
+    }, [usuarioActual])
+
+    useEffect(  () => {
         if( token ){
             let tknDecode = decodeToken(token)
             let expiro = isExpired(token)            
-            await handleObtenerUsuario(tknDecode, expiro)
+            handleObtenerUsuario(tknDecode, expiro)
             localStorage.setItem('KioscosToken', token)
         }
     }, [ token ])
+
+    const handleValidarAcceso = () => {
+        if( (location.pathname.split('/').includes('cliente') || location.pathname.split('/').includes('restaurante'))  && !usuarioActual ){
+            // Asegurarse de que tenga acceso unicamente a las rutas permitidas (Usuario no autenticado)
+            navigate('/login')
+            return
+        }
+
+        if( usuarioActual?.rtn && location.pathname.split('/').includes('cliente') ){
+            // Asegurarse de que tenga acceso unicamente a las rutas permitidas para el usuario restaurante
+            navigate('/login')
+            return
+        }
+        if( usuarioActual?.lastName && location.pathname.split('/').includes('restaurante') ){
+            // Asegurarse de que tenga acceso unicamente a las rutas permitidas para el usuario cliente
+            navigate('/login')
+            return
+        }
+    }
     
-    const handleObtenerUsuario = async  (tkn, expiro) => {
+    const handleObtenerUsuario =  (tkn, expiro) => {
 
         if( !tkn ) return;
         const tipo = tkn.tipo === 'cliente' ? 'usuarios' : 'restaurantes';
@@ -45,6 +77,7 @@ const KioscosAuthProvider = ({children}) => {
             
             if( tkn && !expiro ) {
                 setUsuarioActual(res.data)
+                
             }else {
                 setUsuarioActual(null)
             }

@@ -17,7 +17,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import useKioscosAuth from '../hooks/useKioscosAuth';
 import axios from 'axios'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import {  toast } from 'react-toastify';
 import Alerta from './Alerta';
 
@@ -157,7 +157,7 @@ const FormularioRestaurante = () => {
     <button className='bg-indigo-700 p-4 border rounded text-white hover:bg-indigo-800' type="submit">Crear cuenta</button>
     <div className='grid grid-cols-2'>
         <p className='text-center'>¿Ya tienes una cuenta?</p>
-        <a className='text-center text-green-700 font-bold hover:text-indigo-800' href="/login">Iniciar Sesión</a>
+        <Link className='text-center text-green-700 font-bold hover:text-indigo-800' to="/login">Iniciar Sesión</Link>
     </div>
     </Box>  
   )

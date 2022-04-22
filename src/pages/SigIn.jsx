@@ -17,7 +17,7 @@ import FormLabel from '@mui/material/FormLabel';
 
 import useKioscosAuth from '../hooks/useKioscosAuth';
 import axios from 'axios'
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate, useLocation, Link } from "react-router-dom"
 import {  toast } from 'react-toastify';
 const SigIn = () => {
     
@@ -197,7 +197,7 @@ const SigIn = () => {
               <button className='bg-indigo-700 p-4 border rounded text-white hover:bg-indigo-800' type="submit">Iniciar Sesión</button>
               <div className='grid grid-cols-2'>
                 <p className='text-center'>¿No tienes una cuenta?</p>
-                <a className='text-center text-green-700 font-bold hover:text-indigo-800' href="/signUp">Registrate</a>
+                <Link className='text-center text-green-700 font-bold hover:text-indigo-800' to="/signUp">Registrate</Link>
               </div>
             </Box>      
         </div>

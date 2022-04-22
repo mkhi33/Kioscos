@@ -5,6 +5,9 @@ const KioscosRestauranteContext = createContext();
 const KioscosRestauranteProvider = ( { children }) => {
 
     const [ mesas, setMesas ] = useState([])
+    const [ modalCategoria, setModalCategoria ] = useState(false);
+    const [ cargandoCategorias, setCargandoCategorias ] = useState(true)
+
     const handleObtenerMesas = async (idRestaurante) => {
         if (!idRestaurante) return;
         try {
@@ -19,7 +22,10 @@ const KioscosRestauranteProvider = ( { children }) => {
     return <KioscosRestauranteContext.Provider
         value={{
             mesas,
-            handleObtenerMesas
+            handleObtenerMesas,
+            modalCategoria,
+            setModalCategoria,
+            setCargandoCategorias
         }}
     >
         { children }

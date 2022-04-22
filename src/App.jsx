@@ -12,6 +12,9 @@ import ResumenUsuario from './pages/cliente/ResumenUsuario';
 import TotalCliente from './pages/cliente/TotalCliente';
 
 import InicioRestaurante from './pages/restaurante/InicioRestaurante';
+import MenuRestaurante from './pages/restaurante/MenuRestaurante';
+import CompletadosRestaurante from './pages/restaurante/CompletadosRestaurante';
+import PedidoRestaurante from './pages/restaurante/PedidoRestaurante';
 
 import { KioscosAuthProvider } from './context/KioscosAuthProvider';
 import { KioscosClienteProvider } from './context/KioscosClienteProvider';
@@ -37,6 +40,9 @@ function App() {
                     <Route path='/cliente/total' element={ <TotalCliente />} />
 
                     <Route path='/restaurante' element={ <InicioRestaurante />} />
+                    <Route path='/restaurante/menu' element={ <MenuRestaurante />} />
+                    <Route path='/restaurante/completados' element={ <CompletadosRestaurante />} />
+                    <Route path='/restaurante/pedidos' element={ <PedidoRestaurante />} />
                 </Routes>
 
                 <ToastContainer

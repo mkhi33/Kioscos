@@ -4,11 +4,12 @@ import useKioscosAuth from '../../hooks/useKioscosAuth'
 import useKioscosRestaurante from '../../hooks/useKioscosRestaurante'
 import axios from 'axios'
 import ModalMesa from '../../components/ModalMesa'
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Fab from '@mui/material/Fab';
 import Box from '@mui/material/Box';
 import Spinner from '../../components/Spinner'
+import { Link } from 'react-router-dom'
 const InicioRestaurante = () => {
 
     const { usuarioActual } = useKioscosAuth()
@@ -16,6 +17,7 @@ const InicioRestaurante = () => {
     const [ modal, setModal ] = useState(false)
     const [ cargandoMesas, setCargandoMesas ] = useState(true)
 
+    
     useEffect( () => {
         // Obtener las mesas
         if(usuarioActual && cargandoMesas){
@@ -25,7 +27,8 @@ const InicioRestaurante = () => {
             
         }
     }, [usuarioActual, cargandoMesas])
-
+    
+    if(!usuarioActual) return null
 
 
 
@@ -37,13 +40,13 @@ const InicioRestaurante = () => {
             <div className="w-full md:block md:w-auto ml-auto mr-auto" id="mobile-menu">
                     <ul className="flex flex-row mt-4 gap-10">
                         <li className='text-black hover:text-white'>
-                            <a href='#'>Inicio</a>
+                            <Link to='/restaurante/menu'>Inicio</Link>
                         </li>
                         <li className='text-black hover:text-white'>
-                            <a href='#'>Mesas</a>
+                            <Link to='/restaurante'>Mesas</Link>
                         </li>
                         <li className='text-black hover:text-white'>
-                            <a href='#'>Ordenes</a>
+                            <Link to='#'>Ordenes</Link>
                         </li>
                         
                     </ul>
