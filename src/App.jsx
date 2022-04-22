@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import  Landing from './pages/Landing'
 import SigIn from './pages/SigIn';
 import SignUp from './pages/cliente/SignUp';
+import Error from './pages/Error';
+
 import InicioUsuario from './pages/cliente/InicioUsuario';
 import MenuUsuario from './pages/cliente/MenuUsuario';
 import ResumenUsuario from './pages/cliente/ResumenUsuario';
@@ -28,7 +30,7 @@ function App() {
             <KioscosClienteProvider>
               <KioscosRestauranteProvider>
                 <Routes>
-                    <Route path="*" element={<>404 No encontrado</>} />
+                    <Route path="*" element={<Error />} />
                     <Route path='/' element={<Landing />} />
                     <Route path='/login' element={ <SigIn />} />
                     <Route path='/login/usuario/verificar/:token' element={ <SigIn />} />
