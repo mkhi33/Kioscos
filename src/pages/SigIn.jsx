@@ -34,6 +34,7 @@ const SigIn = () => {
     const location = useLocation();
     
         useEffect( () => {
+          localStorage.removeItem('KioscosToken')
           if( location.pathname.split("/").includes('verificar') ){
             // validar el token
             const token = location.pathname.split("/").pop()
@@ -98,7 +99,6 @@ const SigIn = () => {
     let tipo = usuario.usuario === 'cliente' ? 'usuarios': 'restaurantes'
 
     axios.post(`${import.meta.env.VITE_API_URL}/${tipo}/login`, usuario ).then( res => {
-      
       setToken(res.data.token)
       toast.success("Inicio de sesión correctamente")
 

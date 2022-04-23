@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { QrReader } from 'react-qr-reader';
+import useKioscosCliente from '../hooks/useKioscosCliente'
 const LectorQr = () => {
 
-    const [data, setData] = useState('No result');
+    const [data, setData] = useState(null);
     const [escaneando, setEscaneando] = useState(false);
     const [facignMode, setFacignMode ] = useState(true);
     const [constraints, setConstrains ] = useState({
@@ -10,6 +11,8 @@ const LectorQr = () => {
             exact: 'environment'
         }
     });
+
+    const { qrDecodificado, setQrDecodificado } = useKioscosCliente();
 
     useEffect( () => {
         if( navigator.userAgent.match(/Android/i)
@@ -24,6 +27,15 @@ const LectorQr = () => {
         }else setFacignMode(false)
         
     }, [])
+
+    useEffect( () => {
+        if( data ) {
+            let objeto = JSON.parse(data)
+            localStorage.setItem('restauranteSeleccionado', data)
+            setQrDecodificado(objeto)
+        }
+    }, [ data ])
+
 
 
 
@@ -75,26 +87,6 @@ const LectorQr = () => {
         </div>
 
     )
-  return (
-    <>
-
-
-
-      <QrReader
-        onResult={(result, error) => {
-          if (!!result) {
-            setData(result?.text);
-          }
-
-          if (!!error) {
-            console.info(error);
-          }
-        }}
-        style={{ width: '100%' }}
-      />
-      <p>{data}</p>
-    </>
-  )
 }
 
 export default LectorQr

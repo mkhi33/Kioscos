@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
@@ -9,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import { toast } from 'react-toastify';
 import Spinner from './Spinner'
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import useKioscosRestaurante from '../hooks/useKioscosRestaurante'
 
 const style = {
     position: 'absolute',
@@ -22,16 +22,39 @@ const style = {
     width:"40rem"
   };
 
-const ModalCategoria = ({setModalCategoria, modalCategoria, restaurantId, setCargandoCategorias}) => {
+const ModalCategoria = ({ restaurantId}) => {
 
+
+    const { 
+        setModalCategoria,
+        modalCategoria,
+        cargando,
+        setCargando,
+        handleObtenerCategorias,
+        setCargandoCategoria,
+        editandoCategoria,
+        setEditandoCategoria,
+        categoriaActual
+      } = useKioscosRestaurante();
     
     const [ guardando, setGuardando ] = useState(false)
     const [ categoria, setCategoria ] = useState({
-        idRestaurant: restaurantId,
+        idRestaurant: '',
         name: '',
         image: ''
     })
 
+    useEffect( () => {
+        if(restaurantId){
+            setCategoria({...categoria, idRestaurant: restaurantId})
+        }
+    }, [restaurantId])
+
+    useEffect( () => {
+        if(editandoCategoria) {
+            setCategoria(categoriaActual)
+        }
+    }, [editandoCategoria])
 
 
     
@@ -47,7 +70,10 @@ const ModalCategoria = ({setModalCategoria, modalCategoria, restaurantId, setCar
         };
      }
        
-    const handleClose = () => setModalCategoria(false);
+    const handleClose = () => {
+        setModalCategoria(false);
+        setEditandoCategoria(false)
+    }
 
     const onChangeCategoria = (e) => {
         setCategoria({...categoria, [e.target.name]: e.target.value})
@@ -57,6 +83,7 @@ const ModalCategoria = ({setModalCategoria, modalCategoria, restaurantId, setCar
     }
 
     const handleSubmit = e => {
+    
         e.preventDefault()
         if( Object.values(categoria).includes("") ){
             toast.error("Todos los campos son obligatorios")
@@ -64,17 +91,54 @@ const ModalCategoria = ({setModalCategoria, modalCategoria, restaurantId, setCar
         }
 
         setGuardando(true)
-        axios.post(`${import.meta.env.VITE_API_URL}/menu/categorias`, categoria).then( res => {
-            console.log(res)
-            toast.success("Categoría guardada correctamente")
-            setGuardando(false)
-            setModalCategoria(false)
-        }, err => {
-            console.log(err)
-            toast.error("Error al guardar la categoría")
-            setGuardando(false)
-            setModalCategoria(true)
-        })
+        setCargandoCategoria(true)
+
+        if( editandoCategoria ) {
+
+            let data = {
+                name: categoria.name,
+                image: categoria.image
+            }
+
+            axios.put(`${import.meta.env.VITE_API_URL}/menu/categorias/${categoria.id}`, data ).then( res => {
+                toast.success("Categoría actualizada correctamente")
+                handleObtenerCategorias(categoria.idRestaurant)
+                setGuardando(false)
+                setCargandoCategoria(false)
+                setModalCategoria(false)
+                setCategoria({
+                    idRestaurant: '',
+                    name: '',
+                    image: ''
+                })
+            }, err => {
+                console.log(err)
+                toast.error("Error al actualizar la categoría")
+                setCargandoCategoria(false)
+                setGuardando(false)
+            })
+
+        }else {
+            
+            axios.post(`${import.meta.env.VITE_API_URL}/menu/categorias`, categoria).then( res => {
+                toast.success("Categoría guardada correctamente")
+                handleObtenerCategorias(categoria.idRestaurant)
+                setGuardando(false)
+                setCargandoCategoria(false)
+                setModalCategoria(false)
+                setCategoria({
+                    idRestaurant: '',
+                    name: '',
+                    image: ''
+                })
+            }, err => {
+                console.log(err)
+                toast.error("Error al guardar la categoría")
+                setCargandoCategoria(false)
+                setGuardando(false)
+            })
+        }
+
     }
     
     return (
@@ -95,7 +159,7 @@ const ModalCategoria = ({setModalCategoria, modalCategoria, restaurantId, setCar
                         <div className="w-full">
                             
                             <Typography className="flex flex-row justify-center p-4" variant="h6" component="h2">
-                                Nueva Categoria
+                                { editandoCategoria ? 'Editar Categoría' : 'Nueva Categoria'}
                             </Typography>
                             <Box
                                 component="form"
@@ -138,7 +202,7 @@ const ModalCategoria = ({setModalCategoria, modalCategoria, restaurantId, setCar
                                 <input className='mt-5' type="file" onChange={  (e) =>  getBase64(e.target.files[0])} />
                                 
 
-                                <button type="submit" className="bg-indigo-700 hover:bg-indigo-600 p-2 text-white rounded w-full mt-4 ">Guardar Categoria</button>
+                                <button type="submit" className="bg-indigo-700 hover:bg-indigo-600 p-2 text-white rounded w-full mt-4 ">{ editandoCategoria ? 'Editar categoría' : 'Guardar Categoría'}</button>
                                     
                             </Box>
 

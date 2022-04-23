@@ -1,13 +1,42 @@
-import React from 'react'
+import { useEffect , useState} from 'react'
 import Categoria from '../components/Categoria';
 import useKioscosCliente from '../hooks/useKioscosCliente';
+import useKioscosRestaurante from '../hooks/useKioscosRestaurante';
+import useKioscosAuth from '../hooks/useKioscosAuth'
 
 
 
 
-const Sidebar = () => {
+const Sidebar = ({ restaurantId }) => {
 
-    const { categorias } = useKioscosCliente();
+
+    const { categorias: categoriasRestaurante , handleObtenerCategorias: obtenerCategoriasRestaurante } = useKioscosRestaurante();
+    const { categorias: categoriasCliente,  handleObtenerCategorias: handleObtenerCategoriasCliente } = useKioscosCliente()
+    const { usuarioActual } = useKioscosAuth()
+
+    const [ categorias, setCategorias ] = useState([]);
+    
+    useEffect( () => {
+        if(restaurantId !== -1 && usuarioActual?.rtn ){
+            obtenerCategoriasRestaurante(restaurantId)
+        }else if( restaurantId !== -1 && usuarioActual?.lastName ){
+            handleObtenerCategoriasCliente(restaurantId)
+        }
+    }, [restaurantId, usuarioActual])
+
+    useEffect( () => {
+        if( categoriasRestaurante.length ){
+            setCategorias(categoriasRestaurante)
+        }
+    }, [categoriasRestaurante])
+
+    useEffect( () => {
+        if( categoriasCliente.length ){
+            setCategorias(categoriasCliente)
+        }
+    }, [categoriasCliente])
+
+
 
   return (
     <>
@@ -19,7 +48,7 @@ const Sidebar = () => {
                     categoria={categoria}
                 />
             ))}
-        </nav>
+        </nav>  
     </>
   )
 }

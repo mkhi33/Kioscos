@@ -1,7 +1,8 @@
 import { useEffect, useState, createContext } from 'react';
-import { categorias as cat } from '../test/test';
-import { productos as prods } from '../test/test';
 import {  toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import  useKioscosRestaurante  from '../hooks/useKioscosRestaurante'
+import axios from 'axios'
 
 const KioscosClienteContext = createContext()
 
@@ -15,16 +16,23 @@ const KioscosClienteProvider = ({children}) => {
     const [ pedido, setPedido ] = useState([])
     const [ total, setTotal ] = useState(0);
 
+    const [ qrDecodificado, setQrDecodificado ] = useState({})
+    const navigate = useNavigate();
+
 
     useEffect( () => {
         // Obtener Las categorías
+        if(categorias.length){
+            setCategoriaActual(categorias[0])
+            handleSetProductos(categorias[0].id)
+        }
+    }, [categorias])
 
-        setCategorias(cat)
-        setCategoriaActual(cat[0])
-        handleSetProductos(cat[0].id)
-    }, [])
-
-
+    useEffect( () => {
+        if( Object.keys(qrDecodificado).length ){
+            navigate("/cliente/menu")
+        }
+    }, [qrDecodificado])
 
     useEffect( () => {
         const nuevoTotal = pedido.reduce((total, producto) => (producto.price * producto.cantidad) + total, 0)
@@ -32,16 +40,40 @@ const KioscosClienteProvider = ({children}) => {
     }, [ pedido ])
 
 
+    useEffect( () => {
+        if( Object.keys(categoriaActual) ){
+            handleSetProductos(categoriaActual.id)
+        }
+    }, [ categoriaActual ])
 
     const handleSetProductos = (idCategoria) => {
-        const productos = prods.filter( item => item.categorieId == idCategoria)
-        setProductos(productos)
+        if(!idCategoria) return
+        // Obtener los productos de la categoría actual
+        axios.get(`${import.meta.env.VITE_API_URL}/menu/${idCategoria}/productos`).then( res => {
+            setProductos(res.data)
+        }, err => {
+            console.log(err)
+            setProductos([])
+        })
     }
 
     const handleClickCategoria = (id) => {
-        const actual = categorias.filter( categoria => categoria.id == id )[0]
+        
+        const actual = categorias.filter( categoria => categoria.id === id )[0]
         setCategoriaActual(actual)
         handleSetProductos(id)
+    }
+
+
+    const handleObtenerCategorias = (idRestaurante) => {
+        if( !idRestaurante ) return;
+
+        axios.get(`${import.meta.env.VITE_API_URL}/menu/categorias/restaurante/${idRestaurante}`).then( res => {
+            setCategorias(res.data)
+            console.log(categorias)
+        }, err => {
+            console.log(err)
+        })
     }
 
     const handleSetProducto = producto => {
@@ -102,7 +134,11 @@ const KioscosClienteProvider = ({children}) => {
                 pedido,
                 handleEditarCantidades,
                 handleEliminarProducto,
-                total
+                total,
+                qrDecodificado,
+                setQrDecodificado,
+                setCategorias,
+                handleObtenerCategorias
             }}
         >
             {children}
