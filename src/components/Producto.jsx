@@ -1,20 +1,42 @@
 
-import { formatearDinero } from '../helpers'
 import useKioscosCliente from "../hooks/useKioscosCliente";
-const Producto = ({producto}) => {
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { formatearDinero } from '../helpers'
 
-    const { name, image, price } = producto;
+import { useState } from 'react';
+const Producto = ({producto}) => {
     const { handleSetProducto, handleChangeModal } = useKioscosCliente();
 
-  return (
-    <div className="border p-3">
-        <img src={`../../assets/img/${image}`}  alt={`Imagen platillo ${name}`} width={400} height={500}/>
+    const sx = {
+        maxWidth: 500,
+        minWidth: 200 ,
+    }
 
-        <div className="p-5">
-            <h3 className="text-2xl font-bold">{name}</h3>
-            <p className="mt-5 font-black text-3xl text-amber-500">
-                {formatearDinero(price)}
-            </p>
+    return (
+        <Card sx={sx}>
+           
+            <CardMedia
+                component="img"
+                alt={producto?.name}
+                height="140"
+                image={producto?.image}
+            />
+            <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                    <span className='font-bold text-2xl'>
+                        {producto?.name}
+                    </span>
+                </Typography>
+                <Typography gutterBottom variant="h6" component="div">
+                    <span className="text-amber-500 font-bold">
+                        {formatearDinero(producto?.price)}
+                    </span>
+                </Typography>
+
             <button
                 type="button"
                 className="bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 p-3 uppercase font-bold"
@@ -24,9 +46,12 @@ const Producto = ({producto}) => {
                     handleSetProducto(producto)
                 }}
             >Agregar</button>
-        </div>
-    </div>
-  )
+
+            </CardContent>
+
+        </Card>
+    )
+
 }
 
 export default Producto

@@ -76,7 +76,7 @@ const ModalProducto = () => {
                 <CloseIcon className="ml-auto cursor-pointer" onClick={handleClose} />
               <div className='flex gap-4'>
                 <div className="w-full lg:w-2/4">
-                  <img src={`../../assets/img/${producto.image}`}/>
+                  <img src={producto.image}/>
                 </div>
 
                 <div className="text-4xl w-full  lg:w-2/4">

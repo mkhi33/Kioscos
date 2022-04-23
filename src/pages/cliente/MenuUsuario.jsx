@@ -29,27 +29,38 @@ const MenuUsuario = () => {
       console.log(categorias)
     }
   }, [categorias])
+
   return (
     <Layout>
-      <h1 className='text-4xl font-black'>{categoriaActual.name}</h1>
-      <p className='text-2xl my-10'>Elige y personaliza tu pedido a continuación</p>
-      <div className="flex  flex-col lg:flex-row gap-3">
-
-        {productos?.map( producto => (
-          <div key={producto.id} className="w-full lg:w-1/4 ">
-            <Producto 
-              
-              producto={producto}  
-  
-            />
+      <div className="w-full flex-col">
+        <div className="flex flex-row justify-center">
+          <div className="flex flex-col">
+            <h1 className='text-4xl font-black'>{categoriaActual?.name}</h1>
+            <p className='text-2xl my-10'>Elige y personaliza tu pedido a continuación</p>
           </div>
-        ))}
+        </div>
+
+        <div className="flex flex-row">
+          <div className="grid grid-cols-1 ml-auto mr-auto lg:grid-cols-4 gap-4">
+              { productos.map( producto => (
+              <div key={producto.id} className="w-full lg:w-1/4 ">
+              <Producto 
+                
+                producto={producto}  
+    
+              />
+            </div>
+              ))}
+          </div>  
+        </div>
+
+
       </div>
-      
       <Modal />
 
     </Layout>
   )
+
 }
 
 export default MenuUsuario

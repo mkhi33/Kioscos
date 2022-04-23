@@ -86,6 +86,7 @@ const KioscosClienteProvider = ({children}) => {
     }
 
     const handleAgregarPedido = ({categoriaId, ...producto}) => {
+        if( producto.cantidad === 0 ) return toast.info("La cantidad del pedido no es válida")
         if( pedido.some( productoState => productoState.id === producto.id)){
             /// Actualizar la cantidad de este producto en el pedido
             const pedidoActualizado = pedido.map( productoState => productoState.id === producto.id ? producto : productoState)
