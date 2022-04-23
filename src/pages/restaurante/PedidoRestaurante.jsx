@@ -1,9 +1,15 @@
 import React from 'react'
+import TablaPedidos from '../../components/TablaPedidos'
 import Layout from '../../layout/Layout'
 const PedidoRestaurante = () => {
+
+
+
   return (
     <Layout>
-        Desde Pedido Restaurante
+      <div className='w-full'>
+        <TablaPedidos />
+      </div>
     </Layout>
   )
 }
