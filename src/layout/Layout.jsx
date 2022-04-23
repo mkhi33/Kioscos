@@ -33,7 +33,7 @@ const Layout = ({children}) => {
   }, [usuarioActual])
 
   return (
-    <div classNAme="flex flex-col lg:flex-row">
+    <div className="flex flex-col">
       <div className="flex flex-col md:flex-row mt-2">
 
         <div className="w:full lg:w-3/12 flex flex-row">

@@ -26,7 +26,7 @@ const style = {
 
 const ModalProductoRestaurante = ({ categoriaId }) => {
 
-    const { cargandoProductos, setCargandoProductos, setModalProductos, modalProductos, handleSetProductos } = useKioscosRestaurante()
+    const { cargandoProductos, setCargandoProductos, setModalProductos, modalProductos, handleSetProductos, editandoProducto, productoSeleccionado, setEditandoProducto } = useKioscosRestaurante()
     const [ cargando, setCargando ] = useState(false)
     const [ producto, setProducto ] = useState({
         name:"",
@@ -34,6 +34,15 @@ const ModalProductoRestaurante = ({ categoriaId }) => {
         price:""
     })
 
+    useEffect( () => {
+        if( editandoProducto && productoSeleccionado ) {
+            setProducto({ 
+                name: productoSeleccionado.name,
+                image: productoSeleccionado.image,
+                price: productoSeleccionado.price
+            })
+        }
+    }, [editandoProducto, productoSeleccionado])
 
     const handleOnchange = ( e ) => {
         setProducto({...producto, [e.target.name]: e.target.value})
@@ -50,27 +59,62 @@ const ModalProductoRestaurante = ({ categoriaId }) => {
         };
      }
 
+     const nuevoProducto = () => {
+
+        if( Object.values(producto).includes("")) return toast.error("Todos los campos son obligatorios")
+        setCargando(true)
+        
+        axios.post(`${import.meta.env.VITE_API_URL}/menu/${categoriaId}/productos`, producto).then( res => {
+           setCargando(false)
+           toast.success("El producto se agrego correctamente")
+           setProducto({
+               name:"",
+               image:"",
+               price:""
+           })
+           setModalProductos(false)
+           handleSetProductos(categoriaId)
+       }, err => {
+           toast.error("Error, el producto no fue agregado")
+           setCargando(false)
+
+        })
+
+     }
+     const editarProducto = () => {
+
+        if( Object.values(producto).includes("")) return toast.error("Todos los campos son obligatorios")
+        setCargando(true)
+
+        axios.put(`${import.meta.env.VITE_API_URL}/menu/${categoriaId}/${productoSeleccionado.id}`, producto).then( res => {
+           setCargando(false)
+           toast.success("El producto se actualizo correctamente")
+           setProducto({
+               name:"",
+               image:"",
+               price:""
+           })
+           setModalProductos(false)
+           handleSetProductos(categoriaId)
+           setEditandoProducto(false)
+       }, err => {
+           toast.error("Error, el producto no fue actualizado")
+           setCargando(false)
+
+        })
+
+     }
+
+
      const handleSubmit = (e) => {
          e.preventDefault()
-         
-         if( Object.values(producto).includes("")) return toast.error("Todos los campos son obligatorios")
-         setCargando(true)
-         
-         axios.post(`${import.meta.env.VITE_API_URL}/menu/${categoriaId}/productos`, producto).then( res => {
-            setCargando(false)
-            toast.success("El producto se agrego correctamente")
-            setProducto({
-                name:"",
-                image:"",
-                price:""
-            })
-            setModalProductos(false)
-            handleSetProductos(categoriaId)
-        }, err => {
-            toast.error("Error, el producto no fue agregado")
-            setCargando(false)
 
-         })
+         if( editandoProducto ) {
+            editarProducto()
+         }else {
+             nuevoProducto()
+         }
+         
      }
 
      const reset = () => {
@@ -98,7 +142,7 @@ const ModalProductoRestaurante = ({ categoriaId }) => {
                 >
                     <CloseIcon className="ml-auto cursor-pointer " onClick={() => setModalProductos(false)} />
                     <Typography className="text-center" id="modal-modal-title" variant="h6" component="h2">
-                        Nuevo Producto
+                        { editandoProducto ? 'Editar Producto': 'Nuevo Producto' }
                     </Typography>
 
                     {producto.image ? (
@@ -146,7 +190,7 @@ const ModalProductoRestaurante = ({ categoriaId }) => {
                         onChange= { handleOnchange }
                     />
 
-                    <button type="submit" className="bg-indigo-700 hover:bg-indigo-600 p-2 text-white rounded w-full mt-4 ">Guardar Producto</button>
+                    <button type="submit" className="bg-indigo-700 hover:bg-indigo-600 p-2 text-white rounded w-full mt-4 ">{editandoProducto ? 'Actualizar Producto' : 'Guardar Producto'}</button>
                     
                         
                 </Box>

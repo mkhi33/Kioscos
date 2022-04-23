@@ -14,7 +14,9 @@ const KioscosRestauranteProvider = ( { children }) => {
     const [ modalProductos, setModalProductos ] = useState(false)
     const [ cargandoCategoria, setCargandoCategoria ] = useState(false)
     const [ editandoCategoria , setEditandoCategoria ] = useState(false)
+    const [ editandoProducto , setEditandoProducto ] = useState(false)
     const [ cargandoProductos, setCargandoProductos ] = useState(false)
+    const [ productoSeleccionado, setProductoSeleccionado ] = useState({})
 
 
     useEffect( () => {
@@ -68,6 +70,11 @@ const KioscosRestauranteProvider = ( { children }) => {
         })
     }
 
+    const handleClickProducto = ( idProducto ) => {
+        const [productoActual] = productos.filter( producto => producto.id === idProducto )
+        setProductoSeleccionado(productoActual)
+    }
+
     const handleObtenerMesas = async (idRestaurante) => {
         if (!idRestaurante) return;
         try {
@@ -103,7 +110,11 @@ const KioscosRestauranteProvider = ( { children }) => {
             setEditandoCategoria,
             handleClickCategoria,
             cargandoProductos,
-            setCargandoProductos
+            setCargandoProductos,
+            handleClickProducto,
+            productoSeleccionado,
+            editandoProducto,
+            setEditandoProducto
         }}
     >
         { children }
