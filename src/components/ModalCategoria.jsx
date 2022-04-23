@@ -34,7 +34,7 @@ const ModalCategoria = ({ restaurantId}) => {
         setCargandoCategoria,
         editandoCategoria,
         setEditandoCategoria,
-        categoriaActual
+        categoriaActual,
       } = useKioscosRestaurante();
     
     const [ guardando, setGuardando ] = useState(false)
@@ -85,6 +85,7 @@ const ModalCategoria = ({ restaurantId}) => {
     const handleSubmit = e => {
     
         e.preventDefault()
+        console.log(categoria)
         if( Object.values(categoria).includes("") ){
             toast.error("Todos los campos son obligatorios")
             return;
@@ -107,7 +108,6 @@ const ModalCategoria = ({ restaurantId}) => {
                 setCargandoCategoria(false)
                 setModalCategoria(false)
                 setCategoria({
-                    idRestaurant: '',
                     name: '',
                     image: ''
                 })
@@ -127,7 +127,6 @@ const ModalCategoria = ({ restaurantId}) => {
                 setCargandoCategoria(false)
                 setModalCategoria(false)
                 setCategoria({
-                    idRestaurant: '',
                     name: '',
                     image: ''
                 })

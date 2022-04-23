@@ -60,7 +60,7 @@ const Layout = ({children}) => {
       </div>  
 
       <div className='flex flex-col lg:flex-row'>
-        <aside className={`${ mostrarSidebar ? 'w-full lg:w-3/12 overflow-scroll h-screen': 'hidden' }`}>
+        <aside className={`${ mostrarSidebar ? 'w-full lg:w-3/12 overflow-y-scroll h-screen': 'hidden' }`}>
           <Sidebar restaurantId={ idRestaurante }  className="w-full"/>
           {isRestaurant && 
             (<Box className='mt-5 flex flex-row justify-center' sx={{ '& > :not(style)': { m: 1 } }}>
@@ -71,16 +71,16 @@ const Layout = ({children}) => {
           }
         </aside>
 
-        <main className={`${ mostrarSidebar ? 'w-full md:w-8/12 xl:w-3/4 2xl:w-4/5 h-screen overflow-y-scroll': 'w-full'}`}>
+        <main className={`${ mostrarSidebar ? 'w-full md:w-8/12 lg:w-9/12 lg:h-screen lg:overflow-auto': 'w-full'}`}>
       
-          <div className="flex mt-5  mx-5">
+          <div className="flex  mt-5  mx-5">
               {children}
           </div>
         </main>
 
       </div>
+        <Footer />
 
-      <Footer />
 
     </div>
   )
