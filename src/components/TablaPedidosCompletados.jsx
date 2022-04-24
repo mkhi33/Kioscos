@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TablaPedidos = ({pedidos}) => {
+const TablaPedidosCompletados = ({pedidos}) => {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -30,7 +30,7 @@ const TablaPedidos = ({pedidos}) => {
                             <div className='w-10'>
                                 <img src='../../assets/img-1.svg' />
                             </div>
-                            <span>Fernando Cortes</span>
+                            <span>Carlos Cortes</span>
                         </div>
                     </th>
                     <td className="px-6 py-4">
@@ -40,11 +40,9 @@ const TablaPedidos = ({pedidos}) => {
                         HN 103.24
                     </td>
                     <td className="px-6 py-4">
-                        Pendiente
+                        Completado
                     </td>
-                    <td className="px-6 py-4 text-right">
-                        <button className='bg-indigo-500 hover:bg-indigo-700 p-2 text-white rounded'>Ver Orden</button>
-                    </td>
+
                 </tr>
                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
@@ -52,7 +50,7 @@ const TablaPedidos = ({pedidos}) => {
                             <div className='w-10'>
                                 <img src='../../assets/img-1.svg' />
                             </div>
-                            <span>Amilcar Rodriguez</span>
+                            <span>Ricardo Rodriguez</span>
                         </div>
                     </th>
                     <td className="px-6 py-4">
@@ -62,11 +60,9 @@ const TablaPedidos = ({pedidos}) => {
                         HN 195.33
                     </td>
                     <td className="px-6 py-4">
-                        Pendiente
+                        Completado
                     </td>
-                    <td className="px-6 py-4 text-right">
-                        <button className='bg-indigo-500 hover:bg-indigo-700 p-2 text-white rounded'>Ver Orden</button>
-                    </td>
+
                 </tr>
                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
@@ -74,7 +70,7 @@ const TablaPedidos = ({pedidos}) => {
                             <div className='w-10'>
                                 <img src='../../assets/img-1.svg' />
                             </div>
-                            <span>Rogoberto Hernadez</span>
+                            <span>Isaac Hernadez</span>
                         </div>
                     </th>
                     <td className="px-6 py-4">
@@ -84,11 +80,9 @@ const TablaPedidos = ({pedidos}) => {
                         HN 195.33
                     </td>
                     <td className="px-6 py-4">
-                        En proceso
+                        Completado
                     </td>
-                    <td className="px-6 py-4 text-right">
-                        <button className='bg-indigo-500 hover:bg-indigo-700 p-2 text-white rounded'>Ver Orden</button>
-                    </td>
+
                 </tr>
                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
@@ -96,7 +90,7 @@ const TablaPedidos = ({pedidos}) => {
                             <div className='w-10'>
                                 <img src='../../assets/img-1.svg' />
                             </div>
-                            <span>Juan Perez</span>
+                            <span>Andres Perez</span>
                         </div>
                     </th>
                     <td className="px-6 py-4">
@@ -106,11 +100,9 @@ const TablaPedidos = ({pedidos}) => {
                         HN 195.33
                     </td>
                     <td className="px-6 py-4">
-                        Pendiente
+                        Completado
                     </td>
-                    <td className="px-6 py-4 text-right">
-                        <button className='bg-indigo-500 hover:bg-indigo-700 p-2 text-white rounded'>Ver Orden</button>
-                    </td>
+
                 </tr>
                 
             </tbody>
@@ -119,4 +111,4 @@ const TablaPedidos = ({pedidos}) => {
   )
 }
 
-export default TablaPedidos
+export default TablaPedidosCompletados

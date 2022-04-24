@@ -1,9 +1,12 @@
 import React from 'react'
 import Layout from '../../layout/Layout'
+import TablaPedidosCompletados from '../../components/TablaPedidosCompletados'
 const CompletadosRestaurante = () => {
   return (
     <Layout>
-        Desde Completados
+        <div class="w-full">
+          <TablaPedidosCompletados />
+        </div>
     </Layout>
   )
 }
