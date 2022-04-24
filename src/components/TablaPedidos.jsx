@@ -1,5 +1,5 @@
 import React from 'react'
-
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 const TablaPedidos = ({pedidos}) => {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -28,7 +28,7 @@ const TablaPedidos = ({pedidos}) => {
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                         <div className='flex flex-row  gap-4'>
                             <div className='w-10'>
-                                <img src='https://res.cloudinary.com/dicifr3km/image/upload/v1650832515/kioscos/assets/img-1_ux3u7n.svg' />
+                                <AccountCircleIcon />
                             </div>
                             <span>Fernando Cortes</span>
                         </div>
@@ -50,7 +50,7 @@ const TablaPedidos = ({pedidos}) => {
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                         <div className='flex flex-row  gap-4'>
                             <div className='w-10'>
-                                <img src='https://res.cloudinary.com/dicifr3km/image/upload/v1650832515/kioscos/assets/img-1_ux3u7n.svg' />
+                                <AccountCircleIcon />
                             </div>
                             <span>Amilcar Rodriguez</span>
                         </div>
@@ -72,7 +72,7 @@ const TablaPedidos = ({pedidos}) => {
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                         <div className='flex flex-row  gap-4'>
                             <div className='w-10'>
-                                <img src='https://res.cloudinary.com/dicifr3km/image/upload/v1650832515/kioscos/assets/img-1_ux3u7n.svg' />
+                                <AccountCircleIcon />
                             </div>
                             <span>Rogoberto Hernadez</span>
                         </div>
@@ -94,7 +94,7 @@ const TablaPedidos = ({pedidos}) => {
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                         <div className='flex flex-row  gap-4'>
                             <div className='w-10'>
-                                <img src='https://res.cloudinary.com/dicifr3km/image/upload/v1650832515/kioscos/assets/img-1_ux3u7n.svg' />
+                                <AccountCircleIcon />
                             </div>
                             <span>Juan Perez</span>
                         </div>
