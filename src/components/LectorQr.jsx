@@ -73,7 +73,7 @@ const LectorQr = () => {
                         <div>
 
                             <div className='bg-white w-full md:w-full lg:w-1/4  ml-auto mr-auto h-auto mb-16 border rounded-2xl '>
-                                <img className='ml-auto mr-auto' src='../../assets/img-3.svg' />    
+                                <img className='ml-auto mr-auto' src='https://res.cloudinary.com/dicifr3km/image/upload/v1650832499/kioscos/assets/img-3_udbq5f.svg' />    
                             </div>
 
                             <div className='flex flex-row justify-center'>

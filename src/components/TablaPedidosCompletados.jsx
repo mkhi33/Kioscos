@@ -28,7 +28,7 @@ const TablaPedidosCompletados = ({pedidos}) => {
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                         <div className='flex flex-row  gap-4'>
                             <div className='w-10'>
-                                <img src='../../assets/img-1.svg' />
+                                <img src='https://res.cloudinary.com/dicifr3km/image/upload/v1650832515/kioscos/assets/img-1_ux3u7n.svg' />
                             </div>
                             <span>Carlos Cortes</span>
                         </div>
@@ -48,7 +48,7 @@ const TablaPedidosCompletados = ({pedidos}) => {
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                         <div className='flex flex-row  gap-4'>
                             <div className='w-10'>
-                                <img src='../../assets/img-1.svg' />
+                                <img src='https://res.cloudinary.com/dicifr3km/image/upload/v1650832515/kioscos/assets/img-1_ux3u7n.svg' />
                             </div>
                             <span>Ricardo Rodriguez</span>
                         </div>
@@ -68,7 +68,7 @@ const TablaPedidosCompletados = ({pedidos}) => {
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                         <div className='flex flex-row  gap-4'>
                             <div className='w-10'>
-                                <img src='../../assets/img-1.svg' />
+                                <img src='https://res.cloudinary.com/dicifr3km/image/upload/v1650832515/kioscos/assets/img-1_ux3u7n.svg' />
                             </div>
                             <span>Isaac Hernadez</span>
                         </div>
@@ -88,7 +88,7 @@ const TablaPedidosCompletados = ({pedidos}) => {
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                         <div className='flex flex-row  gap-4'>
                             <div className='w-10'>
-                                <img src='../../assets/img-1.svg' />
+                                <img src='https://res.cloudinary.com/dicifr3km/image/upload/v1650832515/kioscos/assets/img-1_ux3u7n.svg' />
                             </div>
                             <span>Andres Perez</span>
                         </div>

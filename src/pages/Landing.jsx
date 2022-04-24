@@ -26,7 +26,8 @@ const Landing = () => {
                 </nav>
             </div>
             <div className='container'>
-                <img height={360} width={360} src='../../assets/img-1.svg' />    
+                
+                <img height={360} width={360} src='https://res.cloudinary.com/dicifr3km/image/upload/v1650832515/kioscos/assets/img-1_ux3u7n.svg' />    
             </div>
 
         </div>
@@ -40,7 +41,7 @@ const Landing = () => {
 
         <div className='flex m-16'>
             <div className='md:w-7/12'>
-                <img width={480} src='../../assets/restaurant-interior-1.svg' />    
+                <img width={480} src='https://res.cloudinary.com/dicifr3km/image/upload/v1650832519/kioscos/assets/restaurant-interior-1_wjp5oj.svg' />    
             </div>    
             <div className='md:w-5/12'>
                 <h4 className='titulo-2'>Registra tu restaurante en la plataforma para ofrecer una mejor experiencia a tus clientes</h4>

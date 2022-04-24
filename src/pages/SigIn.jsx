@@ -130,7 +130,7 @@ const SigIn = () => {
       <div className="h-auto md:h-auto lg:h-screen container mx-auto">
 
         <h1 className="text-white text-4xl m-5 ">Ordena comida de tus restaurantes favoritos</h1>
-        <img className="w-10/12 ml-auto mr-auto" src="../../assets/img-2.svg" />
+        <img className="w-10/12 ml-auto mr-auto" src="https://res.cloudinary.com/dicifr3km/image/upload/v1650832499/kioscos/assets/img-2_mejovi.svg" />
 
       </div>
 
