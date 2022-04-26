@@ -108,6 +108,7 @@ const ModalCategoria = ({ restaurantId}) => {
                 setCargandoCategoria(false)
                 setModalCategoria(false)
                 setCategoria({
+                    ...categoria,
                     name: '',
                     image: ''
                 })
@@ -119,7 +120,7 @@ const ModalCategoria = ({ restaurantId}) => {
             })
 
         }else {
-            
+
             axios.post(`${import.meta.env.VITE_API_URL}/menu/categorias`, categoria).then( res => {
                 toast.success("Categoría guardada correctamente")
                 handleObtenerCategorias(categoria.idRestaurant)
@@ -127,6 +128,7 @@ const ModalCategoria = ({ restaurantId}) => {
                 setCargandoCategoria(false)
                 setModalCategoria(false)
                 setCategoria({
+                    ...categoria,
                     name: '',
                     image: ''
                 })

@@ -68,7 +68,8 @@ const KioscosClienteProvider = ({children}) => {
             orderProducts: orden,
             start: date,
             end: date,
-            state: 'no_procesado'
+            state: 'no_procesado',
+            restaurantId: qrDecodificado.restaurantId
         } 
         axios.post( `${import.meta.env.VITE_API_URL}/orden/${usuarioActual.id}`, ordenActual).then( res => {
             toast.success("Tu pedido se ha realizado correctamente")

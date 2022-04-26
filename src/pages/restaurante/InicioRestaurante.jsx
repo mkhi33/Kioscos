@@ -13,9 +13,9 @@ import { Link } from 'react-router-dom'
 const InicioRestaurante = () => {
 
     const { usuarioActual } = useKioscosAuth()
-    const {  mesas, handleObtenerMesas } = useKioscosRestaurante()
     const [ modal, setModal ] = useState(false)
     const [ cargandoMesas, setCargandoMesas ] = useState(true)
+    const {  mesas, handleObtenerMesas } = useKioscosRestaurante()
 
     
     useEffect( () => {

@@ -17,6 +17,8 @@ const KioscosRestauranteProvider = ( { children }) => {
     const [ editandoProducto , setEditandoProducto ] = useState(false)
     const [ cargandoProductos, setCargandoProductos ] = useState(false)
     const [ productoSeleccionado, setProductoSeleccionado ] = useState({})
+    const [ pedidos, setPedidos ] = useState([])
+    const [ modalPedidos, setModalPedidos ] = useState(false)
 
 
     useEffect( () => {
@@ -85,6 +87,32 @@ const KioscosRestauranteProvider = ( { children }) => {
         }
         
     }
+
+    const handleObtenerPedidos = (idRestaurant) => {
+        axios.get(`${import.meta.env.VITE_API_URL}/orden/restaurante/${idRestaurant}`).then( res => {
+
+            setPedidos(res.data)
+            
+        }, err => {
+            setPedidos([])
+            console.log(err)
+        })
+        
+    }
+
+
+
+    const handleObtenerUsuario = async (idUsuario ) => {
+
+        try {
+            const usuario =  await axios.get(`${import.meta.env.VITE_API_URL}/usuarios/usuario/${idUsuario}`)
+            return usuario;
+        } catch (error) {
+            console.log(error)
+            return null
+        }
+
+    }
     
     return <KioscosRestauranteContext.Provider
         value={{
@@ -114,7 +142,13 @@ const KioscosRestauranteProvider = ( { children }) => {
             handleClickProducto,
             productoSeleccionado,
             editandoProducto,
-            setEditandoProducto
+            setEditandoProducto,
+            handleObtenerPedidos,
+            pedidos,
+            setPedidos,
+            handleObtenerUsuario,
+            modalPedidos,
+            setModalPedidos
         }}
     >
         { children }
@@ -122,7 +156,7 @@ const KioscosRestauranteProvider = ( { children }) => {
 }
 
 export {
-    KioscosRestauranteProvider
+    KioscosRestauranteProvider,
 }
 
 export default KioscosRestauranteContext;

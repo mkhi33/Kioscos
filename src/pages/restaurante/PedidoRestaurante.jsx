@@ -1,14 +1,27 @@
-import React from 'react'
+import {useEffect, useState} from 'react'
 import TablaPedidos from '../../components/TablaPedidos'
 import Layout from '../../layout/Layout'
+import useKioscosRestaurante from '../../hooks/useKioscosRestaurante'
+import useKioscoAuth from '../../hooks/useKioscosAuth'
 const PedidoRestaurante = () => {
 
+  const { handleObtenerPedidos, pedidos } = useKioscosRestaurante()
+  const { usuarioActual } = useKioscoAuth();
+  
+  useEffect( () => {
+    if( usuarioActual ) {
+      handleObtenerPedidos(usuarioActual.id)
+    }
+  }, [usuarioActual])
 
+  useEffect( () => {  
+    console.log(pedidos)
+  }, [ pedidos ])
 
   return (
     <Layout>
       <div className='w-full'>
-        <TablaPedidos />
+        <TablaPedidos  pedidos={pedidos}/>
       </div>
     </Layout>
   )
