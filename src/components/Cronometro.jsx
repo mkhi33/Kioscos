@@ -1,9 +1,8 @@
 import { useTimer } from 'react-timer-hook';
-
 import {useEffect} from 'react'
+import useKioscosRestaurante from '../hooks/useKioscosRestaurante';
 
-const Cronometro = ({expiryTimestamp}) => {
-
+const Cronometro = ({expiryTimestamp, size}) => {
 
 
     const {
@@ -16,12 +15,18 @@ const Cronometro = ({expiryTimestamp}) => {
         pause,
         resume,
         restart,
-      } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
+      } = useTimer({ expiryTimestamp, onExpire: () => handleOnExpire });
+
+
+
+      const handleOnExpire = () => {
+        console.warn('onExpire called')
+      }
 
   return (
     <div style={{textAlign: 'center'}}>
 
-      <div style={{fontSize: '50px'}}>
+      <div style={{fontSize: size}}>
         <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
       </div>
       <p>{isRunning ? 'Listo en:' : 'Sin iniciar'}</p>

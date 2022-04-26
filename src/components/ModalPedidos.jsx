@@ -25,9 +25,9 @@ const style = {
     p: 4,
   };
 
-const ModalPedidos = ( {orden} ) => {
+const ModalPedidos = ( {orden, setOrden} ) => {
 
-    const { modalPedidos, setModalPedidos, handleObtenerPedidos, pedidos } = useKioscosRestaurante();
+    const { modalPedidos, setModalPedidos, handleObtenerPedidos, pedidos, cronometro, setCronometro } = useKioscosRestaurante();
     const [ tiempo, setTiempo ] = useState('')
     const [ data, setData ] = useState({
         state: 'procesando',
@@ -37,25 +37,27 @@ const ModalPedidos = ( {orden} ) => {
     
     const [ timeState, setTimeState ] = useState(null);
 
+
+
     useEffect( () => {
+        
+        let date = new Date(orden?.end)
+        let hora =  date.getHours()
+        let minutos = date.getMinutes() < 9 ? `0${date.getMinutes()}` : date.getMinutes()
+        setTiempo(`${hora}:${minutos}`)
         actualizarCronometro();
-    }, [pedidos])
+    }, [orden])
 
     const actualizarCronometro = () => {
-        if(orden) {
+        if(orden?.end) {
 
             let start = new Date()
-            let end = new Date(orden.end)
-
             start = new Date(start.toISOString())
-            end = new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getMinutes())
-            console.log(end.toISOString())
-            console.log(start.toISOString())
-            let dif = (end - start) / 1000
-            console.log(dif)
-
+            let end = new Date(orden.end)
+            let dif = (end - start) / 1000 // Diferencia entre las fechas origen
             start.setSeconds(start.getSeconds() + dif )
             setTimeState(start)
+            
         }
     }
 
@@ -65,18 +67,21 @@ const ModalPedidos = ( {orden} ) => {
 
         e.preventDefault()
 
-        let start = new Date()
-        let end = new Date(start.getFullYear(), start.getMonth(), start.getDate(), tiempo.split(":")[0], tiempo.split(":")[1])
+        let inicio = new Date()
+        let final = new Date(inicio.getFullYear(), inicio.getMonth(), inicio.getDate(), tiempo.split(":")[0], parseInt(tiempo.split(":")[1]) )
+        
+        let datos = {
+            state: 'procesando',
+            start: inicio.toISOString(),
+            end: final.toISOString()
+        }
+        setData(datos)
 
-        
-        
-        setData({...data, start: start.toISOString(), end: end.toISOString()})
-        
-        axios.put(`${import.meta.env.VITE_API_URL}/orden/${orden.id}/${orden.userId}`, data).then( res => {
+        axios.put(`${import.meta.env.VITE_API_URL}/orden/${orden.id}/${orden.userId}`, datos).then( res => {
             handleObtenerPedidos(orden?.restaurantId)
-            actualizarCronometro()
-            toast.success("Pedido actualizado")
             setModalPedidos(false)
+            toast.success("Pedido actualizado")
+            
         }, err => {
             toast.error("Error, no se pudo actualizar el pedido")
         })
@@ -115,7 +120,7 @@ const ModalPedidos = ( {orden} ) => {
                     <span className='text-2xl text-amber-500 '>{formatearDinero(orden.total)}</span>
                 </div>
 
-                { timeState && <Cronometro expiryTimestamp={timeState}/>}
+                { timeState && <Cronometro expiryTimestamp={timeState} size='50px'/>}
 
                 <Stack className="mt-5" component="form" noValidate spacing={3}>
                     <TextField
@@ -128,9 +133,11 @@ const ModalPedidos = ( {orden} ) => {
                         inputProps={{
                         step: 300, // 5 min
                         }}
-                        sx={{ width: 150 }}
+                        className="w-full"
                         value={tiempo}
-                        onChange = {(e) => setTiempo(e.target.value)}
+                        onChange = {(e) => {
+                            setTiempo(e.target.value)}  
+                        } 
                 />
 
                 <button onClick={handleTomarOrden} className="bg-indigo-700 hover:bg-indigo-800 p-2 text-white rounded">{orden?.state === 'no_procesado' ? 'Tomar Orden' : 'Actualizar Orden'}</button>

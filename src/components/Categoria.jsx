@@ -13,7 +13,6 @@ const Categoria = ({categoria}) => {
 
 
     useEffect( () => {
-      console.log("inicio")
       if( usuarioActual?.rtn && categoria ){
         setCategoriaActual(categoriaActualRestaurante)
       }else if( usuarioActual?.lastName && categoria ){

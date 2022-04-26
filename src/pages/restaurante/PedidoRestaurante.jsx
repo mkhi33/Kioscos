@@ -14,9 +14,6 @@ const PedidoRestaurante = () => {
     }
   }, [usuarioActual])
 
-  useEffect( () => {  
-    console.log(pedidos)
-  }, [ pedidos ])
 
   return (
     <Layout>

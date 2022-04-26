@@ -19,12 +19,11 @@ const KioscosRestauranteProvider = ( { children }) => {
     const [ productoSeleccionado, setProductoSeleccionado ] = useState({})
     const [ pedidos, setPedidos ] = useState([])
     const [ modalPedidos, setModalPedidos ] = useState(false)
-
+    const [ cronometro, setCronometro ] = useState(false)
 
     useEffect( () => {
         if(Object.keys(categoriaActual).length){
             handleSetProductos(categoriaActual.id)
-            console.log(categoriaActual)
         }
     }, [categoriaActual])
     
@@ -67,7 +66,6 @@ const KioscosRestauranteProvider = ( { children }) => {
         axios.get(`${import.meta.env.VITE_API_URL}/menu/${idCategoria}/productos`).then( res => {
             setProductos(res.data)
         }, err => {
-            console.log(err.toJSON())
             setProductos([])
         })
     }
@@ -148,7 +146,9 @@ const KioscosRestauranteProvider = ( { children }) => {
             setPedidos,
             handleObtenerUsuario,
             modalPedidos,
-            setModalPedidos
+            setModalPedidos,
+            cronometro,
+            setCronometro
         }}
     >
         { children }
