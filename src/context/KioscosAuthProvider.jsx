@@ -16,6 +16,7 @@ const KioscosAuthProvider = ({children}) => {
     const navigate = useNavigate()
     
     useEffect( () => {
+
         // Verificar si hay un token en localStorage
         if( localStorage.getItem('KioscosToken') ) {
             setToken(localStorage.getItem('KioscosToken'))
@@ -35,6 +36,7 @@ const KioscosAuthProvider = ({children}) => {
     }, [])
 
     useEffect( () => {
+
         if(usuarioActual){
             handleValidarAcceso()
         }
@@ -50,6 +52,7 @@ const KioscosAuthProvider = ({children}) => {
     }, [ token ])
 
     const handleValidarAcceso = () => {
+        
         if( (location.pathname.split('/').includes('cliente') || location.pathname.split('/').includes('restaurante'))  && !usuarioActual ){
             // Asegurarse de que tenga acceso unicamente a las rutas permitidas (Usuario no autenticado)
             navigate('/login')

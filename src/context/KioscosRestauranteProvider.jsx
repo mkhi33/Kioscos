@@ -88,7 +88,7 @@ const KioscosRestauranteProvider = ( { children }) => {
 
     const handleObtenerPedidos = (idRestaurant) => {
         axios.get(`${import.meta.env.VITE_API_URL}/orden/restaurante/${idRestaurant}`).then( res => {
-
+            
             setPedidos(res.data)
             
         }, err => {

@@ -9,7 +9,6 @@ export const getCroppedImage = (sourceImage, cropConfig) => {
     canvas.height = cropConfig.height;
     const ctx = canvas.getContext('2d');
 
-    console.log(sourceImage)
     ctx.drawImage(
         sourceImage,
         cropConfig.x * scaleX,

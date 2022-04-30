@@ -1,4 +1,4 @@
-
+import { formatearDinero } from '../helpers'
 
 const TablaPedido = ({orden}) => {
 
@@ -14,7 +14,10 @@ const TablaPedido = ({orden}) => {
                         Cantidad
                     </th>
                     <th scope="col" className="px-6 py-3">
-                        Precio
+                        Precio Unitario
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                        Precio Total
                     </th>
                 </tr>
             </thead>
@@ -31,7 +34,10 @@ const TablaPedido = ({orden}) => {
                                 <span className="font-bold text-2">{producto.cantidad}</span>
                             </td>
                             <td className="px-6 py-4">
-                                <span className="font-bold text-2">{producto.price}</span>
+                                <span className="font-bold text-2">{formatearDinero(producto.price)}</span>
+                            </td>
+                            <td className="px-6 py-4">
+                                <span className="font-bold text-2">{formatearDinero( producto.price*producto.cantidad)}</span>
                             </td>
                            
                         </tr>

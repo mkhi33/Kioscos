@@ -6,13 +6,15 @@ import Producto from "../../components/Producto"
 import Modal from "../../components/ModalProducto"
 const MenuUsuario = () => {
 
-  const { categoriaActual, productos, qrDecodificado, setCategorias, setQrDecodificado } = useKioscosCliente();
+  const { categoriaActual, setCategoriaActual, productos, qrDecodificado, setCategorias, setQrDecodificado } = useKioscosCliente();
   const { categorias, handleObtenerCategorias } = useKioscosRestaurante();
 
   useEffect( () => {
     if(localStorage.getItem('restauranteSeleccionado')){
       let data = JSON.parse(localStorage.getItem('restauranteSeleccionado'))
       setQrDecodificado(data)
+      handleObtenerCategorias(data.restaurantId)
+
     }
   }, [])
 
@@ -26,7 +28,6 @@ const MenuUsuario = () => {
   useEffect( () => {
     if(categorias.length){
       setCategorias(categorias)
-      console.log(categorias)
     }
   }, [categorias])
 

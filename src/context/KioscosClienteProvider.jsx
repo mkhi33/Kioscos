@@ -1,6 +1,6 @@
 import { useEffect, useState, createContext } from 'react';
 import {  toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import  useKioscosRestaurante  from '../hooks/useKioscosRestaurante'
 import axios from 'axios'
 
@@ -18,12 +18,23 @@ const KioscosClienteProvider = ({children}) => {
     const [ mesas, setMesas ] = useState([])
     const [ mesa, setMesa ] = useState({})
     const [ pedidoEnviado, setPedidoEnviado ] = useState(false)
-    const [ estadoPedido, setEstadoPedido ] = useState('no_procesado')
+    const [ pedidosDb, setPedidosDb ] = useState([])
+    const [ modalPedidos, setModalPedidos ] = useState(false)
 
     const [ qrDecodificado, setQrDecodificado ] = useState({})
     const navigate = useNavigate();
+    const location = useLocation()
 
 
+
+    useEffect( () => {
+        if( localStorage.getItem('pedido') ) {
+            setPedido( Object.values(JSON.parse(localStorage.getItem('pedido'))))
+        }
+        if( localStorage.getItem('restauranteSeleccionado') ) {
+            setQrDecodificado( Object.values(JSON.parse(localStorage.getItem('restauranteSeleccionado'))))
+        }
+    } , [])
 
 
     useEffect( () => {
@@ -35,7 +46,7 @@ const KioscosClienteProvider = ({children}) => {
     }, [categorias])
 
     useEffect( () => {
-        if( Object.keys(qrDecodificado).length ){
+        if ( location.pathname === '/cliente' && Object.keys(qrDecodificado).length ){
             navigate("/cliente/menu")
             handleObtenerMesas(qrDecodificado.restaurantId)
         }
@@ -45,6 +56,8 @@ const KioscosClienteProvider = ({children}) => {
         const nuevoTotal = pedido.reduce((total, producto) => (producto.price * producto.cantidad) + total, 0)
         handleObtenerMesas(qrDecodificado.restaurantId)
         setTotal(nuevoTotal)
+        localStorage.setItem('pedido', JSON.stringify(pedido))
+        
     }, [ pedido ])
 
 
@@ -55,9 +68,11 @@ const KioscosClienteProvider = ({children}) => {
         }
     }, [ categoriaActual ])
 
+
+
     const handleEnviarOrden = ( orden, usuarioActual ) => {
         let date = new Date().toISOString()
-        console.log(mesa)
+
         //setPedidoEnviado(true)
 
         const ordenActual = {
@@ -74,7 +89,10 @@ const KioscosClienteProvider = ({children}) => {
         axios.post( `${import.meta.env.VITE_API_URL}/orden/${usuarioActual.id}`, ordenActual).then( res => {
             toast.success("Tu pedido se ha realizado correctamente")
             setPedidoEnviado(true)
-            console.log(res.data.order_products)
+            localStorage.removeItem('pedido')
+            setPedido([])
+            handleObtenerMisPedidos(usuarioActual.id)
+            
         }, err => {
             console.log(err)
             toast.error("Ocurrio un error")
@@ -122,7 +140,7 @@ const KioscosClienteProvider = ({children}) => {
 
         axios.get(`${import.meta.env.VITE_API_URL}/menu/categorias/restaurante/${idRestaurante}`).then( res => {
             setCategorias(res.data)
-            console.log(categorias)
+            
         }, err => {
             console.log(err)
         })
@@ -142,7 +160,6 @@ const KioscosClienteProvider = ({children}) => {
         if( pedido.some( productoState => productoState.id === producto.id)){
             /// Actualizar la cantidad de este producto en el pedido
             const pedidoActualizado = pedido.map( productoState => productoState.id === producto.id ? producto : productoState)
-            console.log(pedidoActualizado)
             setPedido(pedidoActualizado)
             toast.success('Guardado correctamente')
         }else {
@@ -150,8 +167,20 @@ const KioscosClienteProvider = ({children}) => {
             setPedido([...pedido, producto])
             toast.success('Agregado al pedido')
         }
+
         setModal(false)
        
+    }
+
+    const handleObtenerMisPedidos = (ueserId) => {
+        if( localStorage.getItem('restauranteSeleccionado') ) {
+            setQrDecodificado(JSON.parse(localStorage.getItem('restauranteSeleccionado')))
+        }
+        axios.get(`${import.meta.env.VITE_API_URL}/orden/${ueserId}/${qrDecodificado.restaurantId}`).then( res => {
+            setPedidosDb(res.data)
+        }, err => {
+            setPedidosDb([])
+        })
     }
 
 
@@ -176,6 +205,7 @@ const KioscosClienteProvider = ({children}) => {
             value= {{
                 categorias,
                 categoriaActual,
+                setCategoriaActual,
                 handleClickCategoria,
                 handleSetProducto,
                 handleChangeModal,
@@ -194,7 +224,11 @@ const KioscosClienteProvider = ({children}) => {
                 handleObtenerCategorias,
                 handleEnviarOrden,
                 pedidoEnviado,
-                setPedidoEnviado
+                setPedidoEnviado,
+                handleObtenerMisPedidos,
+                pedidosDb,
+                modalPedidos,
+                setModalPedidos
             }}
         >
             {children}

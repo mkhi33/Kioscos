@@ -85,7 +85,6 @@ const ModalCategoria = ({ restaurantId}) => {
     const handleSubmit = e => {
     
         e.preventDefault()
-        console.log(categoria)
         if( Object.values(categoria).includes("") ){
             toast.error("Todos los campos son obligatorios")
             return;

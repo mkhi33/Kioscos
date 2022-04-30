@@ -10,7 +10,7 @@ import useKioscosAuth from '../hooks/useKioscosAuth'
 const Sidebar = ({ restaurantId }) => {
 
 
-    const { categorias: categoriasRestaurante , handleObtenerCategorias: obtenerCategoriasRestaurante } = useKioscosRestaurante();
+    const { categorias: categoriasRestaurante , handleObtenerCategorias: obtenerCategoriasRestaurante  } = useKioscosRestaurante();
     const { categorias: categoriasCliente,  handleObtenerCategorias: handleObtenerCategoriasCliente } = useKioscosCliente()
     const { usuarioActual } = useKioscosAuth()
 
@@ -27,12 +27,14 @@ const Sidebar = ({ restaurantId }) => {
     useEffect( () => {
         if( categoriasRestaurante.length ){
             setCategorias(categoriasRestaurante)
+
         }
     }, [categoriasRestaurante])
 
     useEffect( () => {
         if( categoriasCliente.length ){
             setCategorias(categoriasCliente)
+
         }
     }, [categoriasCliente])
 

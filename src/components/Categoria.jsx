@@ -11,12 +11,17 @@ const Categoria = ({categoria}) => {
 
     const { name, image, id } = categoria;
 
+    useEffect( () => {
+
+    }, [])
 
     useEffect( () => {
       if( usuarioActual?.rtn && categoria ){
         setCategoriaActual(categoriaActualRestaurante)
+
       }else if( usuarioActual?.lastName && categoria ){
         setCategoriaActual(categoriaActualCliente)
+
       }
     }, [categoriaActualRestaurante, categoriaActualCliente])
 

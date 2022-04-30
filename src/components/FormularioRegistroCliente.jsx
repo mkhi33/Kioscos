@@ -79,7 +79,7 @@ const FormularioRegistroCliente = () => {
     }
 
     axios.post(`${import.meta.env.VITE_API_URL}/usuarios`, usuario).then( res => {
-        console.log("Se registro el usuario")
+
       setEstadoRegistro({
         estado: 'success',
         msj: 'Se envio un correo con las instrucciones para validar su cuenta'
