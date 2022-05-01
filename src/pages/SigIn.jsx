@@ -125,18 +125,14 @@ const SigIn = () => {
   }
 
   return (
-
-    <div className="bg-amber-500 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 ">
-      <div className="h-auto md:h-auto lg:h-screen container mx-auto">
-
+    <div className="bg-amber-500 flex  flex-col-reverse lg:flex-row">
+      <div className="h-auto md:h-auto lg:h-screen container mx-auto lg:w-2/4 hidden lg:block">
         <h1 className="text-white text-4xl m-5 ">Ordena comida de tus restaurantes favoritos</h1>
         <img className="w-10/12 ml-auto mr-auto" src="https://res.cloudinary.com/dicifr3km/image/upload/v1650832499/kioscos/assets/img-2_mejovi.svg" />
-
       </div>
 
-      <div className="bg-white border rounded-l-3xl">
-        <div className="my-16">
-
+      <div className="bg-white rounded-none lg:rounded-lg  lg:w-2/4 h-screen">
+        <div>
           <Box
               
               component="form"
@@ -145,7 +141,7 @@ const SigIn = () => {
               }}
               noValidate
               autoComplete="off"
-              className="grid grid-row justify-center"
+              className="flex flex-col justify-center mx-5 my-16"
               onSubmit={handleSubmit}
               
             >
@@ -199,13 +195,14 @@ const SigIn = () => {
                 <p className='text-center'>¿No tienes una cuenta?</p>
                 <Link className='text-center text-green-700 font-bold hover:text-indigo-800' to="/signUp">Registrate</Link>
               </div>
-            </Box>      
+            </Box>  
         </div>
-        
       </div>
 
     </div>
   )
+
+ 
 
 
 

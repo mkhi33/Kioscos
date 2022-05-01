@@ -10,7 +10,7 @@ const Landing = () => {
         <div className='grid md:grid-cols-2 gap-2 '>
 
             <div className='container'>
-                <h1 className='titulo-1 p-5'>Ordena comida en tus restaurantes favoritos</h1>
+                <h1 className='titulo-1 text-4xl p-5'>Ordena comida en tus restaurantes favoritos</h1>
                 <p className='texto-1 mt-10 p-5 '>Inicia sesión en nuestra plataforma y obten la mejor experiencia al realizar tus pedidos</p>
             
                 <nav className='flex grid-cols-2 gap-4 mt-5 pl-16'>
@@ -38,30 +38,30 @@ const Landing = () => {
             <h2 className='text-white text-3xl text-center'>Monitorea el estado de tus pedidos</h2>
         </div>
 
-
-        <div className='flex m-16'>
-            <div className='md:w-7/12'>
-                <img width={480} src='https://res.cloudinary.com/dicifr3km/image/upload/v1650832519/kioscos/assets/restaurant-interior-1_wjp5oj.svg' />    
-            </div>    
-            <div className='md:w-5/12'>
-                <h4 className='titulo-2'>Registra tu restaurante en la plataforma para ofrecer una mejor experiencia a tus clientes</h4>
+        <div className='flex flex-col lg:flex-row my-16 mx-5 gap-4 justify-center'>
+            <div className='w-full lg:w:6/12'>
+                <img  src='https://res.cloudinary.com/dicifr3km/image/upload/v1650832519/kioscos/assets/restaurant-interior-1_wjp5oj.svg' />    
+            </div>
+            <div className='w-full md:w-6/12 lg:w:6/12'>
+                <h4 className='titulo-1 text-4xl'>Registra tu restaurante en la plataforma para ofrecer una mejor experiencia a tus clientes</h4>
                 <p className='texto-1'>En Kioscos puedes gestionar los pedidos de tus clientes de la mejor manera.</p>
             
-                <div className='flex grid-cols-2 gap-4 mt-5 pl-16'>
+                <div className='flex flex-row gap-3 justify-center'>
 
-                    <Link className='bg-sky-500 text-white  hover:bg-sky-700 border rounded shadow text-center p-2' to='/signUp'>
+                    <Link className='bg-sky-500 text-white  hover:bg-sky-700 border rounded shadow text-center w-full p-2' to='/signUp'>
                         <p>Registrate</p>    
                     </Link>
-                    <Link className='bg-amber-500  hover:bg-amber-700 border rounded shadow text-center text-white p-2' to='/login'>
+                    <Link className='bg-amber-500  hover:bg-amber-700 border rounded shadow text-center text-white w-full p-2' to='/login'>
                         <p>Iniciar Sesión</p>    
                     </Link>
 
 
                 </div>
-            </div>  
-
-
+            </div>
         </div>
+
+
+
 
         <FooterLanding />
     </>

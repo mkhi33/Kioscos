@@ -89,6 +89,13 @@ const KioscosAuthProvider = ({children}) => {
         })
     }
 
+    const handleCerrarSesion = () => {
+        localStorage.removeItem('restauranteSeleccionado')
+        localStorage.removeItem('KioscosToken')
+        localStorage.removeItem('pedido')
+        navigate('/')
+    }
+
     
 
     
@@ -97,7 +104,9 @@ const KioscosAuthProvider = ({children}) => {
             value={{
                 setToken,
                 usuarioActual,
+                handleCerrarSesion,
             }}
+
         >
             {children}
         </KioscosAuthContext.Provider>

@@ -10,10 +10,12 @@ import Fab from '@mui/material/Fab';
 import Box from '@mui/material/Box';
 import Spinner from '../../components/Spinner'
 import { Link } from 'react-router-dom'
+import AvatarMenu from '../../components/AvatarMenu'
 const InicioRestaurante = () => {
 
-    const { usuarioActual } = useKioscosAuth()
+    const { usuarioActual, handleCerrarSesion } = useKioscosAuth()
     const [ modal, setModal ] = useState(false)
+    const [ cerrarSesion, setCerrarSesion ] = useState(false)
     const [ cargandoMesas, setCargandoMesas ] = useState(true)
     const {  mesas, handleObtenerMesas } = useKioscosRestaurante()
 
@@ -27,6 +29,12 @@ const InicioRestaurante = () => {
             
         }
     }, [usuarioActual, cargandoMesas])
+
+    useEffect( () => {
+        if(cerrarSesion){
+            handleCerrarSesion()
+        }
+    }, [cerrarSesion])
     
     if(!usuarioActual) return null
 
@@ -35,22 +43,25 @@ const InicioRestaurante = () => {
 
   return (
     <>
-        <div className='bg-amber-500 w-full h-16 flex'>
+        <div className='bg-amber-500 w-full h-16 flex flex-row'>
             <img className='ml-3 h-10 mt-2 '  src='https://res.cloudinary.com/dicifr3km/image/upload/v1649704077/kioscos/Logo_1_ddimbp.svg' />    
-            <div className="w-full md:block md:w-auto ml-auto mr-auto" id="mobile-menu">
-                    <ul className="flex flex-row mt-4 gap-10">
-                        <li className='text-black hover:text-white'>
-                            <Link to='/restaurante/menu'>Inicio</Link>
-                        </li>
-                        <li className='text-black hover:text-white'>
-                            <Link to='/restaurante'>Mesas</Link>
-                        </li>
-                        <li className='text-black hover:text-white'>
-                            <Link to='#'>Ordenes</Link>
-                        </li>
-                        
-                    </ul>
-                </div>
+            <div className="md:block md:w-auto ml-auto mr-auto" id="mobile-menu">
+                <ul className="flex flex-row gap-10">
+                    <li className='text-black mt-4  hover:text-white'>
+                        <Link to='/restaurante/menu'>Inicio</Link>
+                    </li>
+                    <li className='text-black mt-4 hover:text-white'>
+                        <Link to='/restaurante'>Mesas</Link>
+                    </li>
+                    <li className='text-black mt-4 hover:text-white'>
+                        <Link to='#'>Ordenes</Link>
+                    </li>
+
+                    <li className="mt-2">
+                        <AvatarMenu setCerrarSesion={setCerrarSesion} usuario={usuarioActual} />  
+                    </li>
+                </ul>
+            </div>
         
         </div>
 

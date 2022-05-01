@@ -45,6 +45,7 @@ const FormularioRestaurante = () => {
         reader.onload = () => {
             
           setImagen(reader.result);
+          setUsuario({...usuario, image: reader.result})
         };
         reader.onerror = function (error) {
           setImagen(null)
@@ -76,7 +77,6 @@ const FormularioRestaurante = () => {
       
       return;
     }
-
     axios.post(`${import.meta.env.VITE_API_URL}/restaurantes`, usuario).then( res => {
 
       setEstadoRegistro({
@@ -105,7 +105,7 @@ const FormularioRestaurante = () => {
     }}
     noValidate
     autoComplete="off"
-    className="grid grid-row justify-center"
+    className="flex flex-col justify-center mx-5 my-5"
     onSubmit={handleSubmit}
     >
     <h1 className="font-bold text-center">Registrar Restaurante</h1>

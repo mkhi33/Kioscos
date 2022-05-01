@@ -18,25 +18,19 @@ const SignUp = () => {
     setSelectedValue(value);
   };
 
-
   return (
-
-    <div className="bg-amber-500 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 ">
-      <div className="h-screen container mx-auto">
-
+    <div className="bg-amber-500 flex  flex-col-reverse lg:flex-row">
+      <div className="h-auto md:h-auto lg:h-screen container mx-auto lg:w-2/4 hidden lg:block">
         <h1 className="text-white text-4xl m-5 ">Ordena comida de tus restaurantes favoritos</h1>
         <img className="w-10/12" src="https://res.cloudinary.com/dicifr3km/image/upload/v1650832499/kioscos/assets/personas_tnbg41.svg" />
-
       </div>
 
-      <div className="bg-white border rounded-l-3xl">
+      <div className="bg-white rounded-none lg:rounded-lg  lg:w-2/4 h-screen">
         <div className="">
-          {selectedValue === 'cliente' ? <FormularioRegistroCliente /> : <FormularioRegistroRestaurante />}
-          
-          
+          {selectedValue === 'cliente' ? <FormularioRegistroCliente /> : <FormularioRegistroRestaurante />}  
         </div>
-        
       </div>
+
       <Dialogo 
         selectedValue={selectedValue}
         open={open}
@@ -44,6 +38,7 @@ const SignUp = () => {
       />
     </div>
   )
+
 
 
 

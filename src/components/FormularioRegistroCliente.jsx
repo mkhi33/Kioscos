@@ -99,7 +99,7 @@ const FormularioRegistroCliente = () => {
     }}
     noValidate
     autoComplete="off"
-    className="grid grid-row justify-center"
+    className="flex flex-col justify-center mx-5 my-5"
     onSubmit={handleSubmit}
     >
     <h1 className="font-bold text-center">Registrar Usuario</h1>

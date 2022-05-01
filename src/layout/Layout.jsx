@@ -11,6 +11,7 @@ import Fab from '@mui/material/Fab';
 import Box from '@mui/material/Box';
 import PasosRestaurante from '../components/PasosRestaurante'
 import { esMovil } from '../helpers'
+import { useNavigate } from 'react-router-dom';
 const Layout = ({children}) => {
 
   const [ mostrarSidebar, setMostrarSidebar ] = useState(true);
@@ -18,6 +19,7 @@ const Layout = ({children}) => {
   const { usuarioActual } = useKioscoAuth();
   const { setModalCategoria, modalCategoria, cargandoCategorias} = useKioscosRestaurante();
   const [ idRestaurante, setIdRestaurante ] = useState(-1);
+  const navigate = useNavigate()
   const handleClickBurguer = () => {
     setMostrarSidebar(!mostrarSidebar)
 
@@ -32,13 +34,23 @@ const Layout = ({children}) => {
     }
   }, [usuarioActual])
 
+  const handleClickInicio = () => {
+    if( usuarioActual.rtn ) {
+      navigate('/restaurante')
+    }else {
+      navigate('/cliente')
+
+    }
+  }
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-col md:flex-row mt-2">
 
         <div className="w:full lg:w-3/12 flex flex-row">
-
-          <img className='ml-3 mt-2' src={'https://res.cloudinary.com/dicifr3km/image/upload/v1649704077/kioscos/Logo_1_ddimbp.svg'} style={{width:"50px", height:"50px"}}  alt="Imagen logotipo" />
+         <div className="cursor-pointer" onClick={handleClickInicio}>
+            <img  className='ml-3 mt-2' src={'https://res.cloudinary.com/dicifr3km/image/upload/v1649704077/kioscos/Logo_1_ddimbp.svg'} style={{width:"50px", height:"50px"}}  alt="Imagen logotipo" />
+          </div> 
         
             <div className='ml-auto pr-2'>
               {
