@@ -26,6 +26,12 @@ const KioscosRestauranteProvider = ( { children }) => {
             handleSetProductos(categoriaActual.id)
         }
     }, [categoriaActual])
+
+    useEffect( () => {
+        if(categorias.length) {
+            setCategoriaActual(categorias[0])
+        }
+    }, [ categorias ])
     
     const handleObtenerCategorias = (idRestaurante) => {
         setCargandoCategoria(true);

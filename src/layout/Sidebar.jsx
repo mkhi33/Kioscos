@@ -7,14 +7,15 @@ import useKioscosAuth from '../hooks/useKioscosAuth'
 
 
 
+
 const Sidebar = ({ restaurantId }) => {
 
 
     const { categorias: categoriasRestaurante , handleObtenerCategorias: obtenerCategoriasRestaurante  } = useKioscosRestaurante();
     const { categorias: categoriasCliente,  handleObtenerCategorias: handleObtenerCategoriasCliente } = useKioscosCliente()
     const { usuarioActual } = useKioscosAuth()
-
     const [ categorias, setCategorias ] = useState([]);
+
     
     useEffect( () => {
         if(restaurantId !== -1 && usuarioActual?.rtn ){
@@ -40,10 +41,12 @@ const Sidebar = ({ restaurantId }) => {
 
 
 
+
+
   return (
     <>
 
-        <nav className="mt-5">
+        <nav className={`mt-5 ${location.pathname.split('/').includes('menu') ? 'block': 'hidden' } lg:block`}>
             {categorias.map( categoria => (
                 <Categoria 
                     key={categoria.id}

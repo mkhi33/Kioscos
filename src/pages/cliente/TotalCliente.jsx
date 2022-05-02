@@ -44,7 +44,7 @@ const TotalCliente = () => {
   return (
     <Layout>
       
-      <div className="w-full flex flex-col ">
+      <div className="w-full flex flex-col my-5 ">
 
         <div className="flex flex-row">
           <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
@@ -67,15 +67,13 @@ const TotalCliente = () => {
 
 
           {itemActual === items[1]  ? (
-            <div>
-              <h1 className='text-4xl font-black'>Estos son tus pedidos vigentes</h1>
-                <p className='text-2xl my-10'>{usuarioActual?.name}, tu pedido estara listo en:</p>
+            <div className='my-5'>
+              <h1 className='text-4xl font-black'>{usuarioActual?.name}, Estos son tus pedidos vigentes</h1>
                 <TablaPedidosCliente pedidos={pedidosDb} />
-                <Cronometro expiryTimestamp={timeState} />
                 
             </div>
           ) : (
-            <div>
+            <div className='my-5'>
               <h1 className='text-4xl font-black'>Total y confirmar pedido</h1>
               <p className='text-2xl my-10'>{usuarioActual?.name}, confirma tu pedido</p>
               <div className="flex  flex-col  gap-3">

@@ -11,7 +11,7 @@ import Fab from '@mui/material/Fab';
 import Box from '@mui/material/Box';
 import PasosRestaurante from '../components/PasosRestaurante'
 import { esMovil } from '../helpers'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 const Layout = ({children}) => {
 
   const [ mostrarSidebar, setMostrarSidebar ] = useState(true);
@@ -19,11 +19,19 @@ const Layout = ({children}) => {
   const { usuarioActual } = useKioscoAuth();
   const { setModalCategoria, modalCategoria, cargandoCategorias} = useKioscosRestaurante();
   const [ idRestaurante, setIdRestaurante ] = useState(-1);
+  const [ mostrarMain, setMostrarMain ] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
   const handleClickBurguer = () => {
     setMostrarSidebar(!mostrarSidebar)
 
   } 
+
+  useEffect( () => {
+    if( esMovil() && !location.pathname.split("/").includes('menu') ) {
+      setMostrarMain(true)
+    }
+  }, [])
 
   useEffect( ()=> {
     if( usuarioActual?.rtn ){
@@ -33,6 +41,8 @@ const Layout = ({children}) => {
 
     }
   }, [usuarioActual])
+
+
 
   const handleClickInicio = () => {
     if( usuarioActual.rtn ) {
@@ -72,7 +82,7 @@ const Layout = ({children}) => {
       </div>  
 
       <div className='flex flex-col lg:flex-row'>
-        <aside className={`${ mostrarSidebar ? 'w-full lg:w-3/12 overflow-y-scroll h-screen': 'hidden' }`}>
+        <aside className={`${ mostrarSidebar && !mostrarMain ? 'w-full lg:w-3/12 overflow-y-scroll h-screen': 'hidden' }`}>
           <Sidebar restaurantId={ idRestaurante }  className="w-full"/>
           {isRestaurant && 
             (<Box className='mt-5 flex flex-row justify-center' sx={{ '& > :not(style)': { m: 1 } }}>
@@ -83,7 +93,7 @@ const Layout = ({children}) => {
           }
         </aside>
 
-        <main className={`${ mostrarSidebar ? 'w-full md:w-8/12 lg:w-9/12 lg:h-screen lg:overflow-auto': 'w-full'}`}>
+        <main className={`${ mostrarSidebar && !mostrarMain ? 'w-full md:w-8/12 lg:w-9/12 lg:h-screen lg:overflow-auto hidden lg:block': 'w-full'}`}>
       
           <div className="flex  mt-5  mx-5">
               {children}

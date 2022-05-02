@@ -74,7 +74,7 @@ const ModalProducto = () => {
 
             <div className='flex flex-col'>
                 <CloseIcon className="ml-auto cursor-pointer" onClick={handleClose} />
-              <div className='flex gap-4'>
+              <div className='flex flex-col lg:flex-row gap-4'>
                 <div className="w-full lg:w-2/4">
                   <img src={producto.image}/>
                 </div>

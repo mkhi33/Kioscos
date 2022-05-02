@@ -2,15 +2,14 @@ import {useState, useEffect} from 'react'
 import Mesa from '../../components/Mesa'
 import useKioscosAuth from '../../hooks/useKioscosAuth'
 import useKioscosRestaurante from '../../hooks/useKioscosRestaurante'
-import axios from 'axios'
 import ModalMesa from '../../components/ModalMesa'
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Fab from '@mui/material/Fab';
 import Box from '@mui/material/Box';
 import Spinner from '../../components/Spinner'
 import { Link } from 'react-router-dom'
 import AvatarMenu from '../../components/AvatarMenu'
+
 const InicioRestaurante = () => {
 
     const { usuarioActual, handleCerrarSesion } = useKioscosAuth()
@@ -18,6 +17,7 @@ const InicioRestaurante = () => {
     const [ cerrarSesion, setCerrarSesion ] = useState(false)
     const [ cargandoMesas, setCargandoMesas ] = useState(true)
     const {  mesas, handleObtenerMesas } = useKioscosRestaurante()
+
 
     
     useEffect( () => {
@@ -39,24 +39,21 @@ const InicioRestaurante = () => {
     if(!usuarioActual) return null
 
 
-
-
   return (
     <>
-        <div className='bg-amber-500 w-full h-16 flex flex-row'>
+        <div className='bg-amber-500 w-full p-2 flex flex-row'>
             <img className='ml-3 h-10 mt-2 '  src='https://res.cloudinary.com/dicifr3km/image/upload/v1649704077/kioscos/Logo_1_ddimbp.svg' />    
             <div className="md:block md:w-auto ml-auto mr-auto" id="mobile-menu">
                 <ul className="flex flex-row gap-10">
-                    <li className='text-black mt-4  hover:text-white'>
-                        <Link to='/restaurante/menu'>Inicio</Link>
-                    </li>
-                    <li className='text-black mt-4 hover:text-white'>
+                    <li className='text-slate-700 font-bold mt-4 hover:text-slate-900 '>
                         <Link to='/restaurante'>Mesas</Link>
                     </li>
-                    <li className='text-black mt-4 hover:text-white'>
-                        <Link to='#'>Ordenes</Link>
+                    <li className='text-black mt-4  hover:text-white'>
+                        <Link to='/restaurante/menu'>Menu</Link>
                     </li>
-
+                    <li className='text-black mt-4 hover:text-white'>
+                        <Link to='/restaurante/pedidos'>Pedidos</Link>
+                    </li>
                     <li className="mt-2">
                         <AvatarMenu setCerrarSesion={setCerrarSesion} usuario={usuarioActual} />  
                     </li>

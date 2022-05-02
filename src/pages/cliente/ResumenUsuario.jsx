@@ -20,11 +20,11 @@ const ResumenUsuario = () => {
             
             <h1 className='text-4xl font-black'>Resumen</h1>
             <p className='text-2xl my-10'>{usuarioActual?.name}, Revisa tu pedido  </p>
-            <div className="flex  flex-col lg:flex-col gap-3">
+            <div className="flex  flex-col my-5 gap-3">
                 {pedido.map( producto => (
                     <div 
                         key={producto?.id}
-                        className="flex flex-row gap-10 mt-5"
+                        className="flex flex-col lg:flex-row gap-10 mt-5"
                     >
                         <div className='w-full lg:w-1/4'>
                             < img src={producto?.image}/>
