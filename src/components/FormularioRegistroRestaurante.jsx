@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -9,15 +9,8 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
-import useKioscosAuth from '../hooks/useKioscosAuth';
 import axios from 'axios'
-import { useNavigate, Link } from "react-router-dom"
 import {  toast } from 'react-toastify';
 import Alerta from './Alerta';
 
@@ -90,7 +83,28 @@ const FormularioRestaurante = () => {
         email: ''
     })
     }, error => {
-        console.log(error)
+        const err = error.toJSON();
+        switch (err.status) {
+          case 400:
+            setEstadoRegistro({
+              estado: 'error',
+              msj: 'Ya existe restaurante registrado con este correo'
+            })
+            break;
+          case 402:
+            setEstadoRegistro({
+              estado: 'error',
+              msj: 'No se pudo registrar el usuario'
+            })
+            break;
+        
+          default:
+            setEstadoRegistro({
+              estado: 'error',
+              msj: 'No se pudo registrar el restaurante'
+            })
+            break;
+        }
       setEstadoRegistro({
         estado: 'error',
         msj: 'El restaurante ya esta registrado'

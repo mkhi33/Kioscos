@@ -86,10 +86,32 @@ const FormularioRegistroCliente = () => {
         msj: 'Se envio un correo con las instrucciones para validar su cuenta'
       })
     }, error => {
-      setEstadoRegistro({
-        estado: 'error',
-        msj: 'El usuario ya esta registrado'
-      })
+      const err = error.toJSON()
+      switch (err.status) {
+        case 400:
+            setEstadoRegistro({
+              estado: 'error',
+              msj: 'El usuario ya esta registrado en la plataforma'
+            })
+          
+          break;
+          
+          case 402: 
+            setEstadoRegistro({
+              estado: 'error',
+              msj: 'No se pudo registrar el usuario'
+            })
+          
+          break;
+            
+      
+        default:
+          setEstadoRegistro({
+            estado: 'error',
+            msj: 'No se pudo registrar el usuario'
+          })
+          break;
+      }
     })
   }
   return (
