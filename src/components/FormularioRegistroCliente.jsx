@@ -29,7 +29,7 @@ const FormularioRegistroCliente = () => {
         lastName: '',
         password: '',
         birth: '01/01/1990',
-        email: '',
+        email: ''
     });
 
     const [ estadoRegistro, setEstadoRegistro] = useState({
@@ -46,6 +46,7 @@ const FormularioRegistroCliente = () => {
         reader.onload = () => {
             
           setImagen(reader.result);
+          setUsuario({...usuario, image: reader.result})
         };
         reader.onerror = function (error) {
           setImagen(null)
